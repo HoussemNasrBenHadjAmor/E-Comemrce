@@ -97,7 +97,7 @@ const Navbar = () => {
     </Menu>
   );
   return (
-    <>
+    <div className={classes.container}>
       <AppBar position="fixed" className={classes.appBar} color="inherit">
         <Toolbar>
           <IconButton
@@ -164,7 +164,7 @@ const Navbar = () => {
       </AppBar>
       {renderMobileMenu}
       {renderMenu}
-    </>
+    </div>
   );
 };
 
