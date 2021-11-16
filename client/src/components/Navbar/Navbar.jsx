@@ -10,21 +10,21 @@ import {
   Badge,
   MenuItem,
   Box,
-} from "@material-ui/core";
+} from "@mui/material";
 
-import { ShoppingCart, Menu } from "@material-ui/icons";
+import { ShoppingCart, Menu } from "@mui/icons-material";
 
-import PersonOutlineIcon from "@material-ui/icons/PersonOutline";
+import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 
-import MoreIcon from "@material-ui/icons/MoreVert";
+import MoreIcon from "@mui/icons-material/MoreVert";
 
 import useStyles from "./styles";
 
 const Navbar = () => {
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
-  const [anchorEl, setAnchorEl] = useState(null);
   const classes = useStyles();
   const location = useLocation();
+  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
 
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
   const isMenuOpen = Boolean(anchorEl);
@@ -39,8 +39,12 @@ const Navbar = () => {
   };
 
   const handleProfileMenuOpen = (event) => {
-    // setAnchorEl(event.currentTarget);
-    setAnchorEl(!isMenuOpen);
+    setAnchorEl(event.currentTarget);
+    console.log("event", event);
+    console.log("el Anchor", anchorEl);
+    // console.log("isMenuOpen", isMenuOpen);
+
+    // setAnchorEl(!isMenuOpen);
   };
 
   const handleMobileMenuClose = () => setMobileMoreAnchorEl(null);
@@ -49,12 +53,12 @@ const Navbar = () => {
 
   const renderMenu = (
     <Menu
+      id={menuId}
       anchorEl={anchorEl}
       anchorOrigin={{
         vertical: "top",
         horizontal: "right",
       }}
-      id={menuId}
       keepMounted
       transformOrigin={{
         vertical: "top",
@@ -64,7 +68,9 @@ const Navbar = () => {
       onClose={handleMenuClose}
     >
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={handleMenuClose}>Settings</MenuItem>
+      <MenuItem onClick={handleMenuClose}>Display</MenuItem>
+      <MenuItem onClick={handleMenuClose}>Log Out</MenuItem>
     </Menu>
   );
 
@@ -91,7 +97,6 @@ const Navbar = () => {
             <ShoppingCart />
           </Badge>
         </IconButton>
-
         <p>Cart</p>
       </MenuItem>
     </Menu>
@@ -127,14 +132,14 @@ const Navbar = () => {
                 aria-label="Show cart items"
                 color="inherit"
               >
-                <Badge badgeContent={5} color="secondary">
+                <Badge badgeContent={5} color="error">
                   <ShoppingCart />
                 </Badge>
               </IconButton>
             </Box>
           )}
 
-          <Box sx={{ display: { xs: "none", md: "flex" } }}>
+          <Box sx={{ display: { xs: "flex", md: "flex" } }}>
             <IconButton
               size="large"
               edge="end"
