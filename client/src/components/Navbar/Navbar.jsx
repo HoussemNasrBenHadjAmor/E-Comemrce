@@ -8,30 +8,42 @@ import {
   Toolbar,
   IconButton,
   Badge,
-  MenuItem,
   Box,
+  Avatar,
+  // ListItemIcon,
+  ListItemText,
+  // MenuItem,
+  Grid,
 } from "@mui/material";
 
-import { ShoppingCart, Menu } from "@mui/icons-material";
+import MobileMenu from "./MobileMenu/MobileMenu";
 
-import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
+import ProfileMenu from "./ProfileMenu/ProfileMenu";
 
-import MoreIcon from "@mui/icons-material/MoreVert";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+
+// import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
+
+// import MoreIcon from "@mui/icons-material/MoreVert";
+
+import MenuIcon from "@mui/icons-material/Menu";
+
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 
 import useStyles from "./styles";
 
 const Navbar = () => {
   const classes = useStyles();
+
   const location = useLocation();
+
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
+
   const [anchorEl, setAnchorEl] = useState(null);
 
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-  const isMenuOpen = Boolean(anchorEl);
 
-  const handleMobileMenuOpen = (event) => {
-    setMobileMoreAnchorEl(event.currentTarget);
-  };
+  const isMenuOpen = Boolean(anchorEl);
 
   const handleMenuClose = () => {
     setAnchorEl(null);
@@ -40,67 +52,16 @@ const Navbar = () => {
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
-    console.log("event", event);
-    console.log("el Anchor", anchorEl);
-    // console.log("isMenuOpen", isMenuOpen);
-
-    // setAnchorEl(!isMenuOpen);
   };
 
-  const handleMobileMenuClose = () => setMobileMoreAnchorEl(null);
+  const handleMobileMenuClose = () => {
+    setMobileMoreAnchorEl(null);
+  };
 
   const menuId = "primary-search-account-menu";
 
-  const renderMenu = (
-    <Menu
-      id={menuId}
-      anchorEl={anchorEl}
-      anchorOrigin={{
-        vertical: "top",
-        horizontal: "right",
-      }}
-      keepMounted
-      transformOrigin={{
-        vertical: "top",
-        horizontal: "right",
-      }}
-      open={isMenuOpen}
-      onClose={handleMenuClose}
-    >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>Settings</MenuItem>
-      <MenuItem onClick={handleMenuClose}>Display</MenuItem>
-      <MenuItem onClick={handleMenuClose}>Log Out</MenuItem>
-    </Menu>
-  );
-
   const mobileMenuId = "primary-search-account-menu-mobile";
 
-  const renderMobileMenu = (
-    <Menu
-      anchorEl={mobileMoreAnchorEl}
-      anchorOrigin={{ vertical: "top", horizontal: "right" }}
-      id={mobileMenuId}
-      keepMounted
-      transformOrigin={{ vertical: "top", horizontal: "right" }}
-      open={isMobileMenuOpen}
-      onClose={handleMobileMenuClose}
-    >
-      <MenuItem>
-        <IconButton
-          component={Link}
-          to="/cart"
-          aria-label="Show cart items"
-          color="inherit"
-        >
-          <Badge badgeContent={5} color="secondary">
-            <ShoppingCart />
-          </Badge>
-        </IconButton>
-        <p>Cart</p>
-      </MenuItem>
-    </Menu>
-  );
   return (
     <div className={classes.container}>
       <AppBar position="fixed" className={classes.appBar} color="inherit">
@@ -112,8 +73,9 @@ const Navbar = () => {
             aria-label="menu"
             sx={{ mr: 2 }}
           >
-            <Menu />
+            <MenuIcon />
           </IconButton>
+
           <Typography
             component={Link}
             to="/"
@@ -123,9 +85,25 @@ const Navbar = () => {
           >
             HNBHAStore
           </Typography>
+
           <Box sx={{ flexGrow: 1 }} />
+
+          <Box
+            className={classes.IconButtonMargin}
+            sx={{ display: { xs: "none", sm: "flex" } }}
+          >
+            <Grid container alignItems="center" flexDirection="flex">
+              <IconButton>
+                <Avatar sx={{ height: 35, width: 35 }}>H</Avatar>
+              </IconButton>
+              <ListItemText>
+                <Typography>Houssem</Typography>
+              </ListItemText>
+            </Grid>
+          </Box>
+
           {location.pathname === "/" && (
-            <Box>
+            <Box className={classes.IconButtonMargin}>
               <IconButton
                 component={Link}
                 to="/cart"
@@ -133,13 +111,13 @@ const Navbar = () => {
                 color="inherit"
               >
                 <Badge badgeContent={5} color="error">
-                  <ShoppingCart />
+                  <ShoppingCartIcon />
                 </Badge>
               </IconButton>
             </Box>
           )}
 
-          <Box sx={{ display: { xs: "flex", md: "flex" } }}>
+          <Box>
             <IconButton
               size="large"
               edge="end"
@@ -149,26 +127,26 @@ const Navbar = () => {
               onClick={handleProfileMenuOpen}
               color="inherit"
             >
-              <PersonOutlineIcon />
-            </IconButton>
-          </Box>
-
-          <Box sx={{ display: { xs: "flex", md: "none" } }}>
-            <IconButton
-              size="large"
-              aria-label="show more"
-              aria-controls={mobileMenuId}
-              aria-haspopup="true"
-              onClick={handleMobileMenuOpen}
-              color="inherit"
-            >
-              <MoreIcon />
+              <ArrowDropDownIcon />
             </IconButton>
           </Box>
         </Toolbar>
       </AppBar>
-      {renderMobileMenu}
-      {renderMenu}
+
+      <MobileMenu
+        handleProfileMenuOpen={handleProfileMenuOpen}
+        mobileMoreAnchorEl={mobileMoreAnchorEl}
+        mobileMenuId={mobileMenuId}
+        isMobileMenuOpen={isMobileMenuOpen}
+        handleMobileMenuClose={handleMobileMenuClose}
+      />
+
+      <ProfileMenu
+        menuId={menuId}
+        anchorEl={anchorEl}
+        handleMenuClose={handleMenuClose}
+        isMenuOpen={isMenuOpen}
+      />
     </div>
   );
 };
