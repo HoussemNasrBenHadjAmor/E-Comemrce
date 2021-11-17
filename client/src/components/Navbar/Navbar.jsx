@@ -20,11 +20,9 @@ import MobileMenu from "./MobileMenu/MobileMenu";
 
 import ProfileMenu from "./ProfileMenu/ProfileMenu";
 
+import MenuLeft from "./Menu/Menu";
+
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-
-// import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
-
-// import MoreIcon from "@mui/icons-material/MoreVert";
 
 import MenuIcon from "@mui/icons-material/Menu";
 
@@ -37,6 +35,8 @@ const Navbar = () => {
 
   const location = useLocation();
 
+  const [open, setOpen] = useState(false);
+
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
 
   const [anchorEl, setAnchorEl] = useState(null);
@@ -44,6 +44,14 @@ const Navbar = () => {
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
   const isMenuOpen = Boolean(anchorEl);
+
+  const handleDrawerOpen = () => {
+    setOpen(true);
+  };
+
+  const handleDrawerClose = () => {
+    setOpen(false);
+  };
 
   const handleMenuClose = () => {
     setAnchorEl(null);
@@ -67,11 +75,11 @@ const Navbar = () => {
       <AppBar position="fixed" className={classes.appBar} color="inherit">
         <Toolbar>
           <IconButton
-            size="large"
-            edge="start"
             color="inherit"
-            aria-label="menu"
-            sx={{ mr: 2 }}
+            aria-label="open drawer"
+            onClick={handleDrawerOpen}
+            edge="start"
+            sx={{ mr: 2, ...(open && { display: "none" }) }}
           >
             <MenuIcon />
           </IconButton>
@@ -146,6 +154,12 @@ const Navbar = () => {
         anchorEl={anchorEl}
         handleMenuClose={handleMenuClose}
         isMenuOpen={isMenuOpen}
+      />
+
+      <MenuLeft
+        open={open}
+        handleDrawerClose={handleDrawerClose}
+        handleDrawerOpen={handleDrawerOpen}
       />
     </div>
   );
