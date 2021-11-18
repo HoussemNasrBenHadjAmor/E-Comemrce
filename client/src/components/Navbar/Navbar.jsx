@@ -10,13 +10,8 @@ import {
   Badge,
   Box,
   Avatar,
-  // ListItemIcon,
-  ListItemText,
-  // MenuItem,
   Grid,
 } from "@mui/material";
-
-import MobileMenu from "./MobileMenu/MobileMenu";
 
 import ProfileMenu from "./ProfileMenu/ProfileMenu";
 
@@ -37,13 +32,24 @@ const Navbar = () => {
 
   const [open, setOpen] = useState(false);
 
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
+  const [clicked, setClicked] = useState(false);
 
   const [anchorEl, setAnchorEl] = useState(null);
 
-  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-
   const isMenuOpen = Boolean(anchorEl);
+
+  const handleCloseDisplayMenuAndProfileMenu = () => {
+    setAnchorEl(null);
+    setClicked(false);
+  };
+
+  const handleDisplayMenuClose = () => {
+    setClicked(false);
+  };
+
+  const handleDisplayMenuOpen = () => {
+    setClicked(true);
+  };
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -55,23 +61,16 @@ const Navbar = () => {
 
   const handleMenuClose = () => {
     setAnchorEl(null);
-    handleMobileMenuClose();
   };
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleMobileMenuClose = () => {
-    setMobileMoreAnchorEl(null);
-  };
-
   const menuId = "primary-search-account-menu";
 
-  const mobileMenuId = "primary-search-account-menu-mobile";
-
   return (
-    <div className={classes.container}>
+    <>
       <AppBar position="fixed" className={classes.appBar} color="inherit">
         <Toolbar>
           <IconButton
@@ -100,17 +99,20 @@ const Navbar = () => {
             className={classes.IconButtonMargin}
             sx={{ display: { xs: "none", sm: "flex" } }}
           >
-            <Grid container alignItems="center" flexDirection="flex">
-              <IconButton>
-                <Avatar sx={{ height: 35, width: 35 }}>H</Avatar>
-              </IconButton>
-              <ListItemText>
-                <Typography>Houssem</Typography>
-              </ListItemText>
+            <Grid
+              container
+              className={classes.GridProfile}
+              component={Link}
+              to="/profile"
+            >
+              <Avatar className={classes.Avatar} sx={{ height: 34, width: 34 }}>
+                H
+              </Avatar>
+              <Typography color="black">Houssem</Typography>
             </Grid>
           </Box>
 
-          {location.pathname === "/" && (
+          {location.pathname !== "/cart" && (
             <Box className={classes.IconButtonMargin}>
               <IconButton
                 component={Link}
@@ -141,19 +143,19 @@ const Navbar = () => {
         </Toolbar>
       </AppBar>
 
-      <MobileMenu
-        handleProfileMenuOpen={handleProfileMenuOpen}
-        mobileMoreAnchorEl={mobileMoreAnchorEl}
-        mobileMenuId={mobileMenuId}
-        isMobileMenuOpen={isMobileMenuOpen}
-        handleMobileMenuClose={handleMobileMenuClose}
-      />
+      {/*  */}
 
       <ProfileMenu
         menuId={menuId}
         anchorEl={anchorEl}
         handleMenuClose={handleMenuClose}
         isMenuOpen={isMenuOpen}
+        handleDisplayMenuOpen={handleDisplayMenuOpen}
+        handleDisplayMenuClose={handleDisplayMenuClose}
+        clicked={clicked}
+        handleCloseDisplayMenuAndProfileMenu={
+          handleCloseDisplayMenuAndProfileMenu
+        }
       />
 
       <MenuLeft
@@ -161,7 +163,7 @@ const Navbar = () => {
         handleDrawerClose={handleDrawerClose}
         handleDrawerOpen={handleDrawerOpen}
       />
-    </div>
+    </>
   );
 };
 

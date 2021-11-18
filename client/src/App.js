@@ -10,6 +10,12 @@ import {
   Footer,
   ErrorPage,
   Cart,
+  Profile,
+  Categories,
+  Settings,
+  Home,
+  About,
+  Contact,
 } from "./components";
 
 const App = () => {
@@ -21,6 +27,12 @@ const App = () => {
         <Route exact path="/auth/sign-up" component={SignUp} />
         <Route exact path="/products" component={Products} />
         <Route exact path="/cart" component={Cart} />
+        <Route exact path="/profile" component={Profile} />
+        <Route exact path="/categories" component={Categories} />
+        <Route exact path="/settings" component={Settings} />
+        <Route exact path="/about" component={About} />
+        <Route exact path="/contact" component={Contact} />
+        <Route exact path="/" component={Home} />
         <Route component={ErrorPage} />
       </Switch>
       <Footer />
