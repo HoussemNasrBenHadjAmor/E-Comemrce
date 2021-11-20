@@ -11,7 +11,7 @@ export default makeStyles((theme) => ({
       marginLeft: drawerWidth,
     },
     "& root": {
-      marginButton: "30px",
+      marginButtom: "30px",
     },
   },
   title: {

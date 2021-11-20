@@ -1,11 +1,20 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
-import { ThemeProvider } from "@mui/styles";
+import "./index.css";
 
-import { createTheme, responsiveFontSizes } from "@mui/material/styles";
+import {
+  createTheme,
+  responsiveFontSizes,
+  ThemeProvider,
+} from "@mui/material/styles";
 
-let theme = createTheme();
+let theme = createTheme({
+  typography: {
+    fontFamily: ["Ubuntu", "sans-serif"].join(","),
+  },
+});
+
 theme = responsiveFontSizes(theme);
 
 ReactDOM.render(
