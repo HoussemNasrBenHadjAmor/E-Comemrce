@@ -16,6 +16,7 @@ import {
   Home,
   About,
   Contact,
+  Faq,
 } from "./components";
 
 const App = () => {
@@ -32,6 +33,7 @@ const App = () => {
         <Route exact path="/settings" component={Settings} />
         <Route exact path="/about" component={About} />
         <Route exact path="/contact" component={Contact} />
+        <Route exact path="/faq" component={Faq} />
         <Route exact path="/" component={Home} />
         <Route component={ErrorPage} />
       </Switch>
