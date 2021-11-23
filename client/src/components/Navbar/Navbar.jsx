@@ -105,9 +105,7 @@ const Navbar = () => {
               component={Link}
               to="/profile"
             >
-              <Avatar className={classes.Avatar} sx={{ height: 34, width: 34 }}>
-                H
-              </Avatar>
+              <Avatar className={classes.Avatar}>H</Avatar>
               <Typography color="black">Houssem</Typography>
             </Grid>
           </Box>

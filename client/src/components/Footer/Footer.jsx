@@ -1,10 +1,27 @@
 import React from "react";
 
+import { Typography, AppBar, Toolbar } from "@mui/material";
+
 const Footer = () => {
   return (
-    <div>
-      <h1>Footer </h1>
-    </div>
+    <>
+      <AppBar
+        position="sticky"
+        color="inherit"
+        sx={{
+          alignItems: "center",
+          justifyContent: "center",
+          display: "flex",
+          marginTop: { md: "30px", xs: "20px" },
+        }}
+      >
+        <Toolbar>
+          <Typography align="center" variant="body1" color="tomato">
+            All Copyrights © reserved {new Date().getFullYear()}
+          </Typography>
+        </Toolbar>
+      </AppBar>
+    </>
   );
 };
 
