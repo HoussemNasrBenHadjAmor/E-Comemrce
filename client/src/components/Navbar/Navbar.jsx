@@ -2,6 +2,8 @@ import React, { useState } from "react";
 
 import { Link, useLocation } from "react-router-dom";
 
+import Cookies from "universal-cookie";
+
 import {
   Typography,
   AppBar,
@@ -11,6 +13,7 @@ import {
   Box,
   Avatar,
   Grid,
+  Button,
 } from "@mui/material";
 
 import ProfileMenu from "./ProfileMenu/ProfileMenu";
@@ -27,6 +30,8 @@ import useStyles from "./styles";
 
 const Navbar = () => {
   const classes = useStyles();
+
+  const cookies = new Cookies();
 
   const location = useLocation();
 
@@ -69,6 +74,8 @@ const Navbar = () => {
 
   const menuId = "primary-search-account-menu";
 
+  const isLogged = cookies.get("token");
+
   return (
     <>
       <AppBar position="fixed" className={classes.appBar} color="inherit">
@@ -95,53 +102,86 @@ const Navbar = () => {
 
           <Box sx={{ flexGrow: 1 }} />
 
-          <Box
-            className={classes.IconButtonMargin}
-            sx={{ display: { xs: "none", sm: "flex" } }}
-          >
-            <Grid
-              container
-              className={classes.GridProfile}
-              component={Link}
-              to="/profile"
-            >
-              <Avatar className={classes.Avatar}>H</Avatar>
-              <Typography color="black">Houssem</Typography>
-            </Grid>
-          </Box>
-
-          {location.pathname !== "/cart" && (
-            <Box className={classes.IconButtonMargin}>
-              <IconButton
-                component={Link}
-                to="/cart"
-                aria-label="Show cart items"
-                color="inherit"
+          {isLogged ? (
+            <Grid alignItems="center" justifyContent="center" display="flex">
+              <Box
+                className={classes.IconButtonMargin}
+                sx={{ display: { xs: "none", sm: "flex" } }}
               >
-                <Badge badgeContent={5} color="error">
-                  <ShoppingCartIcon />
-                </Badge>
-              </IconButton>
-            </Box>
-          )}
+                <Grid
+                  container
+                  className={classes.GridProfile}
+                  component={Link}
+                  to="/profile"
+                >
+                  <Avatar className={classes.Avatar}>H</Avatar>
+                  <Typography color="black">Houssem</Typography>
+                </Grid>
+              </Box>
 
-          <Box>
-            <IconButton
-              size="large"
-              edge="end"
-              aria-label="account of current user"
-              aria-controls={menuId}
-              aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
-              color="inherit"
-            >
-              <ArrowDropDownIcon />
-            </IconButton>
-          </Box>
+              {location.pathname !== "/cart" && (
+                <Box className={classes.IconButtonMargin}>
+                  <IconButton
+                    component={Link}
+                    to="/cart"
+                    aria-label="Show cart items"
+                    color="inherit"
+                  >
+                    <Badge badgeContent={5} color="error">
+                      <ShoppingCartIcon />
+                    </Badge>
+                  </IconButton>
+                </Box>
+              )}
+
+              <Box>
+                <IconButton
+                  size="large"
+                  edge="end"
+                  aria-label="account of current user"
+                  aria-controls={menuId}
+                  aria-haspopup="true"
+                  onClick={handleProfileMenuOpen}
+                  color="inherit"
+                >
+                  <ArrowDropDownIcon />
+                </IconButton>
+              </Box>
+            </Grid>
+          ) : (
+            <Grid display="flex">
+              <Button
+                className={classes.button}
+                variant={
+                  location.pathname === "/auth/sign-up"
+                    ? "contained"
+                    : "outlined"
+                }
+                sx={{
+                  display: { xs: "none", sm: "flex" },
+                }}
+                component={Link}
+                to="/auth/sign-up"
+              >
+                Sign Up
+              </Button>
+              <Button
+                className={classes.button}
+                variant={
+                  location.pathname === "/auth/sign-up"
+                    ? "outlined"
+                    : "contained"
+                }
+                sx={{ marginLeft: "10px" }}
+                component={Link}
+                to="/auth/sign-in"
+              >
+                Sign In
+              </Button>
+            </Grid>
+          )}
         </Toolbar>
       </AppBar>
-
-      {/*  */}
 
       <ProfileMenu
         menuId={menuId}

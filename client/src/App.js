@@ -24,7 +24,7 @@ const App = () => {
     <BrowserRouter>
       <Navbar />
       <Switch>
-        <Route exact path="/auth/login" component={SignIn} />
+        <Route exact path="/auth/sign-in" component={SignIn} />
         <Route exact path="/auth/sign-up" component={SignUp} />
         <Route exact path="/products" component={Products} />
         <Route exact path="/cart" component={Cart} />

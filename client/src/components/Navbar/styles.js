@@ -54,4 +54,6 @@ export default makeStyles((theme) => ({
       borderRadius: "100px",
     },
   },
+
+  button: { textTransform: "initial !important" },
 }));
