@@ -2,7 +2,7 @@ import { makeStyles } from "@mui/styles";
 
 export default makeStyles((theme) => ({
   Grid: {
-    padding: "100px 0px 0px 80px",
+    padding: "85px 0px 0px 80px",
     [theme.breakpoints.down("md")]: {
       padding: "70px 20px 0px 20px",
     },
