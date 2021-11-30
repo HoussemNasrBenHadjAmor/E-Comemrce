@@ -5,15 +5,34 @@ const userSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  password: {
+  firstName: {
     type: String,
     required: true,
   },
+  lastName: {
+    type: String,
+    required: true,
+  },
+  password: {
+    type: String,
+    required: false,
+    default: null,
+  },
   phoneNumber: {
     type: Number,
+    default: null,
   },
   profilePhoto: {
     type: String,
+    default: null,
+  },
+  googleId: {
+    type: String,
+    default: null,
+  },
+  facebookId: {
+    type: String,
+    default: null,
   },
 });
 

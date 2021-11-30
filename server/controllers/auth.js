@@ -14,13 +14,13 @@ const saltRounds = 15;
 
 const secretKey = process.env.SECRET_KEY;
 
-const generateAccessToken = (user) => {
+export const generateAccessToken = (user) => {
   return jwt.sign({ id: user._id }, secretKey, {
     expiresIn: "15m",
   });
 };
 
-const generateRefreshToken = (user) => {
+export const generateRefreshToken = (user) => {
   return jwt.sign({ id: user._id }, secretKey);
 };
 
@@ -31,6 +31,14 @@ export const login = async (req, res) => {
 
     if (!oldUser) {
       return res.status(404).json("Email Is incorrect");
+    }
+
+    if (oldUser.googleId) {
+      return res.status(401).json("You Need To Login With Google Account");
+    }
+
+    if (oldUser.facebookId) {
+      return res.status(401).json("You Need To Login With Facebook Account");
     }
 
     const isPasswordCorrect = await bcrypt.compare(password, oldUser.password);
@@ -51,7 +59,7 @@ export const login = async (req, res) => {
       .cookie("refreshToken", refreshToken, { path: "/", secure: true })
       .sendStatus(200);
   } catch (error) {
-    res.status(500).json(error);
+    res.status(500).json("Email or Password Is Incorrect");
   }
 };
 

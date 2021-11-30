@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { BrowserRouter, Switch, Route, useLocation } from "react-router-dom";
+
+import NProgress from "react-nprogress";
 
 import {
   SignIn,
@@ -20,6 +22,24 @@ import {
 } from "./components";
 
 const App = () => {
+  // const location = useLocation();
+
+  // console.log("location", location);
+
+  // const [prevLoc, setPrevLoc] = useState("");
+
+  // useEffect(() => {
+  //   setPrevLoc(location.pathname);
+  //   NProgress.start();
+  //   if (location.pathname === prevLoc) {
+  //     NProgress.done();
+  //   }
+  // }, [location, prevLoc]);
+
+  // useEffect(() => {
+  //   NProgress.done();
+  // }, [prevLoc]);
+
   return (
     <BrowserRouter>
       <Navbar />
