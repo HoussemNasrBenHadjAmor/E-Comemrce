@@ -8,7 +8,7 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-var refreshTokens = [];
+// var refreshTokens = [];
 
 const saltRounds = 15;
 
@@ -33,7 +33,7 @@ export const login = async (req, res) => {
       return res.status(404).json("Email Is incorrect");
     }
 
-    if (oldUser.googleId) {
+    if (oldUser.password === null) {
       return res.status(401).json("You Need To Login With Google Account");
     }
 
@@ -51,7 +51,10 @@ export const login = async (req, res) => {
 
     const refreshToken = generateRefreshToken(oldUser);
 
-    refreshTokens.push(refreshToken);
+    await userModel.findByIdAndUpdate(id, {
+      token,
+      refreshToken,
+    });
 
     res
       .cookie("id", oldUser._id, { path: "/", secure: true })
@@ -88,11 +91,19 @@ export const logout = async (req, res) => {
       return res.status(404).json("RefreshToken Required");
     }
 
-    if (!refreshTokens.includes(refreshToken)) {
+    const isValidRefreshToken = await userModel.findOne({ refreshToken });
+
+    if (!isValidRefreshToken) {
       return res.status(401).json("Invalid RefreshToken");
     }
 
-    refreshTokens = refreshTokens.filter((token) => token !== refreshToken);
+    await userModel.findOneAndUpdate(
+      { refreshToken },
+      {
+        token: null,
+        refreshToken: null,
+      }
+    );
 
     res
       .clearCookie("id", { path: "/" })
@@ -111,11 +122,13 @@ export const refresh = async (req, res) => {
       return res.status(404).json("Credentials Requied");
     }
 
-    if (!refreshTokens.includes(refreshToken)) {
+    const userWithRefreshToken = await userModel.findOne({ refreshToken });
+
+    if (!userWithRefreshToken) {
       return res.status(401).json("Invalid Credentials");
     }
 
-    jwt.verify(refreshToken, secretKey, (err, user) => {
+    jwt.verify(refreshToken, secretKey, async (err, user) => {
       if (err) {
         return res.status(403).json("Credentials Not Valid After Verifing");
       }
@@ -124,9 +137,13 @@ export const refresh = async (req, res) => {
 
       const newRefreshToken = generateRefreshToken(user);
 
-      refreshTokens = refreshTokens.filter((token) => token !== refreshToken);
-
-      refreshTokens.push(newRefreshToken);
+      await userModel.findOneAndUpdate(
+        { refreshToken },
+        {
+          token: newAccessToken,
+          refreshToken: newRefreshToken,
+        }
+      );
 
       res
         .cookie("token", newAccessToken, { path: "/", secure: true })
@@ -149,11 +166,12 @@ export const protectedRoute = async (req, res) => {
       return res.status(404).json("Credentials Required");
     }
 
-    const correctID = await userModel.findById(id);
+    const correctUser = await userModel.findOne({
+      _id: id,
+      refreshToken,
+    });
 
-    const correctRefreshToken = refreshTokens.includes(refreshToken);
-
-    if (!correctID || !correctRefreshToken) {
+    if (!correctUser) {
       return res.status(403).json("Invalid ID or Refresh");
     }
 
