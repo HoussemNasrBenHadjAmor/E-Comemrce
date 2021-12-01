@@ -105,6 +105,8 @@ export const logout = async (req, res) => {
       }
     );
 
+    window.location.href = "/auth/sign-in";
+
     res
       .clearCookie("id", { path: "/" })
       .clearCookie("token", { path: "/" })

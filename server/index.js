@@ -5,7 +5,7 @@ import express from "express";
 import dotenv from "dotenv";
 import db from "./config/db.js";
 
-import { authRouter, googleRouter } from "./routes/index.js";
+import { authRouter } from "./routes/index.js";
 
 dotenv.config();
 
@@ -15,8 +15,8 @@ const app = express();
 
 app.use(
   cors({
-    origin: process.env.ORIGIN_FRONT,
     credentials: true,
+    origin: "http://localhost:3000",
   })
 );
 
@@ -33,5 +33,3 @@ app.get("/", (req, res) => {
 });
 
 app.use("/auth", authRouter);
-
-app.use("/auth/google", googleRouter);

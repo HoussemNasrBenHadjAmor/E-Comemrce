@@ -16,6 +16,10 @@ import {
   Button,
 } from "@mui/material";
 
+import { useDispatch } from "react-redux";
+
+import { logout } from "../../store/actions/auth";
+
 import ProfileMenu from "./ProfileMenu/ProfileMenu";
 
 import MenuLeft from "./Menu/Menu";
@@ -30,6 +34,8 @@ import useStyles from "./styles";
 
 const Navbar = () => {
   const classes = useStyles();
+
+  const dispatch = useDispatch();
 
   const cookies = new Cookies();
 
@@ -70,6 +76,10 @@ const Navbar = () => {
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
+  };
+
+  const signOut = () => {
+    dispatch(logout());
   };
 
   const menuId = "primary-search-account-menu";
@@ -194,6 +204,7 @@ const Navbar = () => {
         handleCloseDisplayMenuAndProfileMenu={
           handleCloseDisplayMenuAndProfileMenu
         }
+        signOut={signOut}
       />
 
       <MenuLeft
