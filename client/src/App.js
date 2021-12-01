@@ -4,6 +4,10 @@ import { BrowserRouter, Switch, Route, useLocation } from "react-router-dom";
 
 import NProgress from "react-nprogress";
 
+import LoggedRoute from "./LoggedRoute";
+
+import ProtectedRoute from "./ProtectedRoute";
+
 import {
   SignIn,
   SignUp,
@@ -44,17 +48,17 @@ const App = () => {
     <BrowserRouter>
       <Navbar />
       <Switch>
-        <Route exact path="/auth/sign-in" component={SignIn} />
-        <Route exact path="/auth/sign-up" component={SignUp} />
+        <LoggedRoute exact path="/auth/sign-in" component={SignIn} />
+        <LoggedRoute exact path="/auth/sign-up" component={SignUp} />
         <Route exact path="/products" component={Products} />
         <Route exact path="/cart" component={Cart} />
-        <Route exact path="/profile" component={Profile} />
+        <ProtectedRoute exact path="/profile" component={Profile} />
         <Route exact path="/categories" component={Categories} />
         <Route exact path="/settings" component={Settings} />
         <Route exact path="/about" component={About} />
         <Route exact path="/contact" component={Contact} />
         <Route exact path="/faq" component={Faq} />
-        <Route exact path="/" component={Home} />
+        <ProtectedRoute exact path="/" component={Home} />
         <Route component={ErrorPage} />
       </Switch>
       <Footer />

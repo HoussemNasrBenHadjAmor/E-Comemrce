@@ -13,7 +13,12 @@ db();
 
 const app = express();
 
-app.use(cors());
+app.use(
+  cors({
+    origin: process.env.ORIGIN_FRONT,
+    credentials: true,
+  })
+);
 
 app.use(bodyParser.json());
 
