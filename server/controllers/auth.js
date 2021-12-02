@@ -29,22 +29,18 @@ export const login = async (req, res) => {
   try {
     const oldUser = await userModel.findOne({ email });
 
-    if (!oldUser) {
-      return res.status(404).json("Email Is incorrect");
-    }
-
-    if (oldUser.password === null) {
+    if (oldUser.password === null && oldUser.googleId) {
       return res.status(401).json("You Need To Login With Google Account");
     }
 
-    if (oldUser.facebookId) {
+    if (oldUser.password === null && oldUser.facebookId) {
       return res.status(401).json("You Need To Login With Facebook Account");
     }
 
     const isPasswordCorrect = await bcrypt.compare(password, oldUser.password);
 
-    if (!isPasswordCorrect) {
-      return res.status(401).json("Password Is Incorrect");
+    if (!isPasswordCorrect || !oldUser) {
+      return res.status(404).json("Email Or Password Is Incorrect");
     }
 
     const token = generateAccessToken(oldUser);
@@ -67,16 +63,21 @@ export const login = async (req, res) => {
 };
 
 export const signup = async (req, res) => {
-  const { email, password } = req.body;
+  const { email, password, firstName, lastName } = req.body;
   try {
     const existedUser = await userModel.findOne({ email });
     if (existedUser) {
-      return res.status(400).json("User Already Exist");
+      return res.status(400).json("You Already Have An Account !");
     }
 
     const hashedPassword = bcrypt.hashSync(password, saltRounds);
 
-    await userModel.create({ email, password: hashedPassword });
+    await userModel.create({
+      email,
+      password: hashedPassword,
+      firstName,
+      lastName,
+    });
 
     res.sendStatus(200);
   } catch (error) {
