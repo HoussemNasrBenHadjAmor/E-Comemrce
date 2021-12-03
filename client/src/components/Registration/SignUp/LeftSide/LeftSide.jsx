@@ -23,7 +23,11 @@ const LeftSide = () => {
 
   const dispatch = useDispatch();
 
-  const { signErrorMessage } = useSelector((state) => state.auth);
+  const { signErrorMessage, userSigned } = useSelector((state) => state.auth);
+
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const [isUserSigned, setIsUserSigned] = useState(false);
 
   const [user, setUser] = useState({
     email: "",
@@ -33,18 +37,25 @@ const LeftSide = () => {
     lastName: "",
   });
 
-  const [fields, setFields] = useState({
-    firstNameError: false,
-    firstNameHelperText: "",
-    lastNameError: false,
-    lastNameHelperText: "",
-    emailError: false,
-    emailHelperText: "",
-    passwordError: false,
-    passwordHelperText: "",
-    password2Error: false,
-    password2HelperText: "",
-  });
+  const [errorFirstName, setErrorFirstName] = useState(false);
+
+  const [firstNameHelperText, setFirstNameHelperText] = useState("");
+
+  const [errorLastName, setErrorLastName] = useState(false);
+
+  const [lastNameHelperText, setLastNameHelperText] = useState("");
+
+  const [errorEmail, setErrorEmail] = useState(false);
+
+  const [emailHelperText, setEmailHelperText] = useState("");
+
+  const [errorPassword, setErrorPassword] = useState(false);
+
+  const [passwordHelperText, setPasswordHelperText] = useState("");
+
+  const [errorPassword2, setErrorPassword2] = useState(false);
+
+  const [password2HelperText, setPassword2HelperText] = useState("");
 
   const [clicked, setClicked] = useState(false);
 
@@ -52,197 +63,69 @@ const LeftSide = () => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
 
-  const verifyEmailField = () => {
-    let errorField = false;
-    const text = "Field Required*";
-    if (user.email === "") {
-      setFields({ ...fields, emailError: true, emailHelperText: text });
-      errorField = true;
-      console.log("email", user.email);
-    } else if (user.email !== "") {
-      setFields({ ...fields, emailError: false, emailHelperText: "" });
-      errorField = false;
-    }
-
-    return errorField;
-  };
-
-  const verifyFirstNameField = () => {
-    let errorField = false;
-    const text = "Field Required*";
-    if (user.firstName === "") {
-      setFields({
-        ...fields,
-        firstNameError: true,
-        firstNameHelperText: "Field Required*",
-      });
-      errorField = true;
-    } else if (user.firstName !== "") {
-      setFields({
-        ...fields,
-        firstNameError: false,
-        firstNameHelperText: "",
-      });
-      errorField = false;
-    }
-    return errorField;
-  };
-
-  const verifyLastNameField = () => {
-    let errorField = false;
-    const text = "Field Required*";
-    if (user.lastName === "") {
-      setFields({
-        ...fields,
-        lastNameError: true,
-        lastNameHelperText: "Field Required*",
-      });
-      errorField = true;
-    } else if (user.lastName !== "") {
-      setFields({
-        ...fields,
-        lastNameError: false,
-        lastNameHelperText: "",
-      });
-      errorField = false;
-    }
-    return errorField;
-  };
-
-  const verifyPasswordField = () => {
-    let errorField = false;
-
-    if (user.password === "") {
-      setFields({
-        ...fields,
-        passwordError: true,
-        passwordHelperText: "Field Required*",
-      });
-      errorField = true;
-    } else if (user.password !== "") {
-      setFields({
-        ...fields,
-        passwordError: false,
-        passwordHelperText: "",
-      });
-      errorField = false;
-    }
-
-    return errorField;
-  };
-
-  const verifyPassword2Field = () => {
-    let errorField = false;
-
-    if (user.password2 === "") {
-      console.log("email pas", user.email);
-      setFields({
-        ...fields,
-        password2Error: true,
-        password2HelperText: "Field Required*",
-      });
-      errorField = true;
-    } else if (user.password2 !== "") {
-      setFields({
-        ...fields,
-        password2Error: false,
-        password2HelperText: "",
-      });
-      errorField = false;
-    }
-
-    return errorField;
-  };
   const verifyFields = () => {
     let errorField = false;
     const text = "Field Required*";
     try {
-      const emailError = verifyEmailField();
-      const firstName = verifyFirstNameField();
-      const lastName = verifyLastNameField();
-      const password = verifyPasswordField();
-      const password2 = verifyPassword2Field();
-      console.log(firstName, lastName, emailError, password, password2);
-      if (!emailError && !firstName && !lastName && !password && !password2) {
-        console.log("pas de probleme");
-        errorField = false;
-      } else {
+      if (user.firstName === "") {
+        setErrorFirstName(true);
+        setFirstNameHelperText(text);
         errorField = true;
+      } else {
+        setErrorFirstName(false);
+        setFirstNameHelperText("");
+        errorField = false;
       }
-      // if (user.email === "") {
-      //   // setFields({ ...fields, emailError: true, emailHelperText: text });
-      //   setFields({ ...fields, emailError: true, emailHelperText: text });
-      //   errorField = true;
-      //   console.log("email", user.email);
-      // } else if (user.email !== "") {
-      //   setFields({ ...fields, emailError: false, emailHelperText: "" });
-      //   errorField = false;
-      // }
 
-      // if (user.firstName === "") {
-      //   setFields({
-      //     ...fields,
-      //     firstNameError: true,
-      //     firstNameHelperText: "Field Required*",
-      //   });
-      //   errorField = true;
-      // } else if (user.firstName !== "") {
-      //   setFields({
-      //     ...fields,
-      //     firstNameError: false,
-      //     firstNameHelperText: "",
-      //   });
-      //   errorField = false;
-      // }
+      if (user.lastName === "") {
+        setErrorLastName(true);
+        setLastNameHelperText(text);
+        errorField = true;
+      } else {
+        setErrorLastName(false);
+        setLastNameHelperText("");
+        errorField = false;
+      }
 
-      // if (user.lastName === "") {
-      //   setFields({
-      //     ...fields,
-      //     lastNameError: true,
-      //     lastNameHelperText: "Field Required*",
-      //   });
-      //   errorField = true;
-      // } else if (user.lastName !== "") {
-      //   setFields({
-      //     ...fields,
-      //     lastNameError: false,
-      //     lastNameHelperText: "",
-      //   });
-      //   errorField = false;
-      // }
+      if (user.email === "") {
+        setErrorEmail(true);
+        setEmailHelperText(text);
+        errorField = true;
+      } else {
+        setErrorEmail(false);
+        setEmailHelperText("");
+        errorField = false;
+      }
 
-      // if (user.password === "") {
-      //   setFields({
-      //     ...fields,
-      //     passwordError: true,
-      //     passwordHelperText: "Field Required*",
-      //   });
-      //   errorField = true;
-      // } else if (user.password !== "") {
-      //   setFields({
-      //     ...fields,
-      //     passwordError: false,
-      //     passwordHelperText: "",
-      //   });
-      //   errorField = false;
-      // }
+      if (user.password === "") {
+        setErrorPassword(true);
+        setPasswordHelperText(text);
+        errorField = true;
+      } else {
+        setErrorPassword(false);
+        setPasswordHelperText("");
+        errorField = false;
+      }
 
-      // if (user.password2 === "") {
-      //   console.log("email pas", user.email);
-      //   setFields({
-      //     ...fields,
-      //     password2Error: true,
-      //     password2HelperText: "Field Required*",
-      //   });
-      //   errorField = true;
-      // } else if (user.password2 !== "") {
-      //   setFields({
-      //     ...fields,
-      //     password2Error: false,
-      //     password2HelperText: "",
-      //   });
-      //   errorField = false;
-      // }
+      if (user.password2 === "") {
+        setErrorPassword2(true);
+        setPassword2HelperText(text);
+        errorField = true;
+      } else {
+        setErrorPassword2(false);
+        setPassword2HelperText("");
+        errorField = false;
+      }
+
+      if (user.password !== "" && user.password2 !== "") {
+        if (user.password !== user.password2) {
+          setErrorPassword(true);
+          setErrorPassword2(true);
+          setPasswordHelperText("Password Not Match !");
+          setPassword2HelperText("Password Not Match !");
+          errorField = true;
+        }
+      }
       return errorField;
     } catch (error) {
       return error;
@@ -252,8 +135,7 @@ const LeftSide = () => {
   const handleClick = () => {
     const errorField = verifyFields();
     try {
-      setClicked(true);
-      if (!errorField && user.password === user.password2) {
+      if (!errorField) {
         const data = {
           firstName: user.firstName,
           lastName: user.lastName,
@@ -261,6 +143,7 @@ const LeftSide = () => {
           password: user.password,
         };
         dispatch(signup(data));
+        setClicked(true);
       }
     } catch (error) {
       return error;
@@ -268,11 +151,18 @@ const LeftSide = () => {
   };
 
   useEffect(() => {
-    console.log("signErrorMessage", signErrorMessage);
-    if (signErrorMessage !== null && clicked) {
+    if (userSigned && clicked) {
+      setIsUserSigned(true);
+    }
+
+    if (isUserSigned) {
       history.push("/auth/sign-in");
     }
-  }, [signErrorMessage, clicked]);
+
+    if (clicked && signErrorMessage) {
+      setErrorMessage(signErrorMessage);
+    }
+  }, [userSigned, signErrorMessage, clicked]);
 
   return (
     <>
@@ -313,8 +203,8 @@ const LeftSide = () => {
             fullWidth
             onChange={handleChange}
             required
-            error={fields.firstNameError}
-            helperText={fields.firstNameHelperText}
+            error={errorFirstName}
+            helperText={firstNameHelperText}
           />
         </Grid>
 
@@ -334,8 +224,8 @@ const LeftSide = () => {
             fullWidth
             required
             onChange={handleChange}
-            error={fields.lastNameError}
-            helperText={fields.lastNameHelperText}
+            error={errorLastName}
+            helperText={lastNameHelperText}
           />
         </Grid>
 
@@ -355,8 +245,8 @@ const LeftSide = () => {
             fullWidth
             required
             onChange={handleChange}
-            error={fields.emailError}
-            helperText={fields.emailHelperText}
+            error={errorEmail}
+            helperText={emailHelperText}
           />
         </Grid>
 
@@ -376,8 +266,8 @@ const LeftSide = () => {
             fullWidth
             required
             onChange={handleChange}
-            error={fields.passwordError}
-            helperText={fields.passwordHelperText}
+            error={errorPassword}
+            helperText={passwordHelperText}
           />
         </Grid>
 
@@ -397,15 +287,15 @@ const LeftSide = () => {
             fullWidth
             required
             onChange={handleChange}
-            error={fields.password2Error}
-            helperText={fields.password2HelperText}
+            error={errorPassword2}
+            helperText={password2HelperText}
           />
         </Grid>
       </Grid>
 
       <Grid display={signErrorMessage ? "flex" : "none"} paddingTop="5px">
         <Typography variant="subtitle2" color="red" fontWeight="700">
-          {signErrorMessage && signErrorMessage}
+          {signErrorMessage && clicked && errorMessage}
         </Typography>
       </Grid>
 

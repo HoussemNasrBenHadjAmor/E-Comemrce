@@ -5,7 +5,8 @@ const initialeState = {
   isLoading: true,
   userLogged: false,
   errorMessage: "",
-  signErrorMessage: null,
+  signErrorMessage: "",
+  userSigned: false,
 };
 
 export default (auth = initialeState, action) => {
@@ -35,7 +36,7 @@ export default (auth = initialeState, action) => {
       return { ...auth, signErrorMessage: action.payload };
 
     case actions.SIGNUP_SUCCESS:
-      return { ...auth, errorMessage: "" };
+      return { ...auth, signErrorMessage: "", userSigned: true };
 
     case actions.LOGOUT_SUCCESS:
       return {};

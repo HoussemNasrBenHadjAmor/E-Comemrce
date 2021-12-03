@@ -29,6 +29,10 @@ export const login = async (req, res) => {
   try {
     const oldUser = await userModel.findOne({ email });
 
+    if (!oldUser) {
+      return res.status(401).json("Email Or Password Is Incorrect");
+    }
+
     if (oldUser.password === null && oldUser.googleId) {
       return res.status(401).json("You Need To Login With Google Account");
     }
@@ -39,7 +43,7 @@ export const login = async (req, res) => {
 
     const isPasswordCorrect = await bcrypt.compare(password, oldUser.password);
 
-    if (!isPasswordCorrect || !oldUser) {
+    if (!isPasswordCorrect) {
       return res.status(404).json("Email Or Password Is Incorrect");
     }
 
@@ -47,7 +51,7 @@ export const login = async (req, res) => {
 
     const refreshToken = generateRefreshToken(oldUser);
 
-    await userModel.findByIdAndUpdate(id, {
+    await userModel.findByIdAndUpdate(oldUser._id, {
       token,
       refreshToken,
     });
@@ -58,7 +62,7 @@ export const login = async (req, res) => {
       .cookie("refreshToken", refreshToken, { path: "/", secure: true })
       .sendStatus(200);
   } catch (error) {
-    res.status(500).json("Email or Password Is Incorrect");
+    res.status(500).json(error);
   }
 };
 

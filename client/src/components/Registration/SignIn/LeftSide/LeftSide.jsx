@@ -101,6 +101,11 @@ const LeftSide = () => {
       setUser({ ...user, email: "", password: "" });
       window.location.href = "/";
     }
+
+    // if (clicked) {
+    //   setMessageError("");
+    // }
+
     if (clicked && errorMessage) {
       setMessageError(errorMessage);
     }
