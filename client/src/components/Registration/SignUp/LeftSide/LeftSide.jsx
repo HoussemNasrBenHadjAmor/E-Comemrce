@@ -6,6 +6,8 @@ import useStyles from "./styles";
 
 import { Grid, Button, Typography, TextField, Divider } from "@mui/material";
 
+import LoadingButton from "@mui/lab/LoadingButton";
+
 import GoogleIcon from "@mui/icons-material/Google";
 
 import FacebookIcon from "@mui/icons-material/Facebook";
@@ -23,7 +25,9 @@ const LeftSide = () => {
 
   const dispatch = useDispatch();
 
-  const { signErrorMessage, userSigned } = useSelector((state) => state.auth);
+  const { signErrorMessage, userSigned, loading } = useSelector(
+    (state) => state.auth
+  );
 
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -151,16 +155,12 @@ const LeftSide = () => {
   };
 
   useEffect(() => {
-    if (userSigned && clicked) {
-      setIsUserSigned(true);
-    }
-
-    if (isUserSigned) {
-      history.push("/auth/sign-in");
-    }
-
     if (clicked && signErrorMessage) {
       setErrorMessage(signErrorMessage);
+    }
+
+    if (userSigned && clicked) {
+      history.push("/auth/sign-in");
     }
   }, [userSigned, signErrorMessage, clicked]);
 
@@ -295,7 +295,7 @@ const LeftSide = () => {
 
       <Grid display={signErrorMessage ? "flex" : "none"} paddingTop="5px">
         <Typography variant="subtitle2" color="red" fontWeight="700">
-          {signErrorMessage && clicked && errorMessage}
+          {signErrorMessage && clicked && !loading && errorMessage}
         </Typography>
       </Grid>
 
@@ -317,14 +317,15 @@ const LeftSide = () => {
         >
           Already have an account ?
         </Typography>
-        <Button
+        <LoadingButton
           variant="contained"
           className={classes.Button}
           color="info"
           onClick={handleClick}
+          loading={loading}
         >
           Sign Up
-        </Button>
+        </LoadingButton>
       </Grid>
 
       <Grid item paddingY="10px">

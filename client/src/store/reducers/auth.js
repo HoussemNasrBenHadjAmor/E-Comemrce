@@ -7,14 +7,22 @@ const initialeState = {
   errorMessage: "",
   signErrorMessage: "",
   userSigned: false,
+  loading: false,
 };
 
 export default (auth = initialeState, action) => {
   switch (action.type) {
+    case actions.LOGIN_REQUEST:
+      return { ...auth, loading: true, userLogged: false, errorMessage: "" };
+
+    case actions.LOGIN_GOOGLE_REQUEST:
+      return { ...auth, loading: true, userLogged: false, errorMessage: "" };
+
     case actions.LOGIN_SUCCESS:
       return {
         ...auth,
         userLogged: true,
+        loading: false,
         errorMessage: "",
       };
 
@@ -22,6 +30,7 @@ export default (auth = initialeState, action) => {
       return {
         ...auth,
         userLogged: false,
+        loading: false,
         errorMessage: action.payload,
       };
 
@@ -32,11 +41,29 @@ export default (auth = initialeState, action) => {
         errorMessage: "",
       };
 
+    case actions.SIGNUP_REQUEST:
+      return {
+        ...auth,
+        loading: true,
+        userSigned: false,
+        signErrorMessage: "",
+      };
+
     case actions.SIGNUP_FAILURE:
-      return { ...auth, signErrorMessage: action.payload };
+      return {
+        ...auth,
+        signErrorMessage: action.payload,
+        loading: false,
+        userSigned: false,
+      };
 
     case actions.SIGNUP_SUCCESS:
-      return { ...auth, signErrorMessage: "", userSigned: true };
+      return {
+        ...auth,
+        signErrorMessage: "",
+        userSigned: true,
+        loading: false,
+      };
 
     case actions.LOGOUT_SUCCESS:
       return {};

@@ -21,6 +21,7 @@ export const verifyProtect = () => async (dispatch) => {
 };
 
 export const login = (user) => async (dispatch) => {
+  dispatch({ type: actions.LOGIN_REQUEST });
   try {
     const data = await api.login(user);
     dispatch({ type: actions.LOGIN_SUCCESS, payload: data });
@@ -36,6 +37,7 @@ export const login = (user) => async (dispatch) => {
 };
 
 export const googleLogin = (id) => async (dispatch) => {
+  // dispatch({ type: actions.LOGIN_GOOGLE_REQUEST });
   try {
     const data = await api.googleLogin(id);
     dispatch({ type: actions.LOGIN_GOOGLE_SUCCESS, payload: data });
@@ -45,6 +47,7 @@ export const googleLogin = (id) => async (dispatch) => {
 };
 
 export const signup = (newUser) => async (dispatch) => {
+  dispatch({ type: actions.SIGNUP_REQUEST });
   try {
     const data = await api.signup(newUser);
     dispatch({ type: actions.SIGNUP_SUCCESS, payload: data });

@@ -10,6 +10,8 @@ import useStyles from "./styles";
 
 import { Grid, Button, Typography, TextField, Divider } from "@mui/material";
 
+import LoadingButton from "@mui/lab/LoadingButton";
+
 import GoogleIcon from "@mui/icons-material/Google";
 
 import FacebookIcon from "@mui/icons-material/Facebook";
@@ -21,7 +23,9 @@ const LeftSide = () => {
 
   const dispatch = useDispatch();
 
-  const { userLogged, errorMessage } = useSelector((state) => state.auth);
+  const { userLogged, errorMessage, loading } = useSelector(
+    (state) => state.auth
+  );
 
   const [user, setUser] = useState({
     email: "",
@@ -101,10 +105,6 @@ const LeftSide = () => {
       setUser({ ...user, email: "", password: "" });
       window.location.href = "/";
     }
-
-    // if (clicked) {
-    //   setMessageError("");
-    // }
 
     if (clicked && errorMessage) {
       setMessageError(errorMessage);
@@ -210,7 +210,7 @@ const LeftSide = () => {
 
       <Grid display={errorMessage ? "flex" : "none"} paddingTop="5px">
         <Typography variant="subtitle2" color="red" fontWeight="700">
-          {!emailError && !passwordError && messageError}
+          {!emailError && !passwordError && !loading && messageError}
         </Typography>
       </Grid>
 
@@ -231,14 +231,15 @@ const LeftSide = () => {
           Don't have an account yet ?
         </Typography>
 
-        <Button
+        <LoadingButton
           variant="contained"
           className={classes.Button}
           color="info"
           onClick={handleLogin}
+          loading={loading}
         >
           Login
-        </Button>
+        </LoadingButton>
       </Grid>
 
       <Grid item paddingY="10px">
