@@ -23,6 +23,8 @@ import {
   About,
   Contact,
   Faq,
+  Test,
+  Skelton,
 } from "./components";
 
 const App = () => {
@@ -58,6 +60,8 @@ const App = () => {
         <Route exact path="/about" component={About} />
         <Route exact path="/contact" component={Contact} />
         <Route exact path="/faq" component={Faq} />
+        <Route exact path="/test" component={Test} />
+        <Route exact path="/skelton" component={Skelton} />
         <ProtectedRoute exact path="/" component={Home} />
         <Route component={ErrorPage} />
       </Switch>

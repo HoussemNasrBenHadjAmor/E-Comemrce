@@ -37,7 +37,6 @@ export const login = (user) => async (dispatch) => {
 };
 
 export const googleLogin = (id) => async (dispatch) => {
-  // dispatch({ type: actions.LOGIN_GOOGLE_REQUEST });
   try {
     const data = await api.googleLogin(id);
     dispatch({ type: actions.LOGIN_GOOGLE_SUCCESS, payload: data });

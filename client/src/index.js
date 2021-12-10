@@ -5,6 +5,8 @@ import { Provider } from "react-redux";
 import { store } from "./store/store";
 import App from "./App";
 
+import { StateContextProvider } from "./context/StateContextProvider";
+
 import {
   createTheme,
   responsiveFontSizes,
@@ -23,7 +25,9 @@ ReactDOM.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
       <Provider store={store}>
-        <App />
+        <StateContextProvider>
+          <App />
+        </StateContextProvider>
       </Provider>
     </ThemeProvider>
   </React.StrictMode>,

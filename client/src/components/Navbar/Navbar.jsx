@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { Link, useLocation } from "react-router-dom";
 
@@ -16,9 +16,13 @@ import {
   Button,
 } from "@mui/material";
 
-import { useDispatch } from "react-redux";
+import NavbarSkelton from "./NavbarSkelton/NavbarSkelton";
+
+import { useDispatch, useSelector } from "react-redux";
 
 import { logout } from "../../store/actions/auth";
+
+import { getUser } from "../../store/actions/user";
 
 import ProfileMenu from "./ProfileMenu/ProfileMenu";
 
@@ -84,7 +88,19 @@ const Navbar = () => {
 
   const menuId = "primary-search-account-menu";
 
-  const isLogged = cookies.get("token");
+  const isLogged = cookies.get("id");
+
+  const { userInfo, loading } = useSelector((state) => state.user);
+
+  useEffect(() => {
+    if (isLogged) {
+      dispatch(getUser());
+    }
+  }, []);
+
+  if (loading) {
+    return <NavbarSkelton />;
+  }
 
   return (
     <>
@@ -124,8 +140,14 @@ const Navbar = () => {
                   component={Link}
                   to="/profile"
                 >
-                  <Avatar className={classes.Avatar}>H</Avatar>
-                  <Typography color="black">Houssem</Typography>
+                  <Avatar
+                    className={classes.Avatar}
+                    src={userInfo?.profilePhoto ? userInfo.profilePhoto : null}
+                  >
+                    {!userInfo?.profilePhoto && userInfo?.firstName[0]}
+                  </Avatar>
+
+                  <Typography color="black">{userInfo?.firstName}</Typography>
                 </Grid>
               </Box>
 

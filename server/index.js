@@ -5,7 +5,7 @@ import express from "express";
 import dotenv from "dotenv";
 import db from "./config/db.js";
 
-import { authRouter } from "./routes/index.js";
+import { authRouter, userRouter } from "./routes/index.js";
 
 dotenv.config();
 
@@ -33,3 +33,5 @@ app.get("/", (req, res) => {
 });
 
 app.use("/auth", authRouter);
+
+app.use("/user", userRouter);

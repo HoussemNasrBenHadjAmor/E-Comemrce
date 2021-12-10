@@ -2,6 +2,8 @@ import React from "react";
 
 import { Link } from "react-router-dom";
 
+import { useSelector } from "react-redux";
+
 import {
   Typography,
   MenuItem,
@@ -41,6 +43,7 @@ const ProfileMenu = ({
   signOut,
 }) => {
   const classes = useStyles();
+  const { userInfo } = useSelector((state) => state.user);
   return (
     <>
       <CssBaseline />
@@ -108,8 +111,9 @@ const ProfileMenu = ({
                   alt="Remy Sharp"
                   sx={{ width: 60, height: 60 }}
                   className={classes.avatar}
+                  src={userInfo?.profilePhoto ? userInfo.profilePhoto : null}
                 >
-                  H
+                  {!userInfo?.profilePhoto && userInfo?.firstName[0]}
                 </Avatar>
               </ListItemIcon>
 
@@ -122,7 +126,9 @@ const ProfileMenu = ({
               >
                 <Grid item xs={12}>
                   <ListItemText>
-                    <Typography variant="body1">Houssem Ben Nasr</Typography>
+                    <Typography variant="body1">
+                      {userInfo?.firstName} {userInfo?.lastName}
+                    </Typography>
                   </ListItemText>
                 </Grid>
 
