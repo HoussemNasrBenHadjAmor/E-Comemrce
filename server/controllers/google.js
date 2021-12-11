@@ -125,26 +125,3 @@ export const sign = async (req, res) => {
     res.status(500).json({ msg: "error", data: error });
   }
 };
-
-export const logoutGoogle = async (req, res) => {
-  const { idToken } = req.body;
-
-  try {
-    const ticket = await client.verifyIdToken({
-      idToken,
-      audience: process.env.GOOGLE_AUTH_KEY,
-    });
-
-    const y = ticket.getAttributes();
-    console.log("y", y);
-
-    const auth = new GoogleAuth({ projectId });
-    // const x = client.revokeCredentials();
-
-    // console.log("x", x);
-    res.sendStatus(200);
-    // auth.
-  } catch (error) {
-    res.status(500).json(error);
-  }
-};

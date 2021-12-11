@@ -8,7 +8,7 @@ import {
   protectedRoute,
 } from "../controllers/auth.js";
 
-import { sign, logoutGoogle } from "../controllers/google.js";
+import { sign } from "../controllers/google.js";
 
 import { verify } from "../middleware/authentication.js";
 
@@ -25,7 +25,5 @@ router.post("/refresh", refresh);
 router.post("/protected", verify, protectedRoute);
 
 router.post("/google", sign);
-
-router.post("/google-logout", logoutGoogle);
 
 export default router;

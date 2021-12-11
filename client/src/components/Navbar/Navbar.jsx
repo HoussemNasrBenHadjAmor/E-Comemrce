@@ -155,7 +155,7 @@ const Navbar = () => {
                     {!userInfo?.profilePhoto && userInfo?.firstName[0]}
                   </Avatar>
 
-                  <Typography color="black">{userInfo?.firstName}</Typography>
+                  <Typography color="initial">{userInfo?.firstName}</Typography>
                 </Grid>
               </Box>
 

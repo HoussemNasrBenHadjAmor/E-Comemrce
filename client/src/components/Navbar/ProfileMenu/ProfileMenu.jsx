@@ -102,7 +102,14 @@ const ProfileMenu = ({
             </Grid>
 
             <Grid item className={classes.GridDisplay}>
-              <Grid className={classes.GridRadio}>
+              <Grid
+                className={classes.GridRadio}
+                onClick={() => {
+                  setDark(false);
+                  cookies.set("darkMode", false);
+                }}
+                style={{ cursor: "pointer" }}
+              >
                 <Typography>Off</Typography>
                 <FormControl>
                   <RadioGroup>
@@ -110,16 +117,19 @@ const ProfileMenu = ({
                       control={<Radio />}
                       label=""
                       checked={dark ? false : true}
-                      onChange={() => {
-                        setDark(false);
-                        cookies.set("darkMode", false);
-                      }}
                     />
                   </RadioGroup>
                 </FormControl>
               </Grid>
 
-              <Grid className={classes.GridRadio}>
+              <Grid
+                className={classes.GridRadio}
+                onClick={() => {
+                  setDark(true);
+                  cookies.set("darkMode", true);
+                }}
+                style={{ cursor: "pointer" }}
+              >
                 <Typography>On</Typography>
                 <FormControl>
                   <RadioGroup>
@@ -127,10 +137,6 @@ const ProfileMenu = ({
                       control={<Radio />}
                       label=""
                       checked={dark ? true : false}
-                      onChange={() => {
-                        setDark(true);
-                        cookies.set("darkMode", true);
-                      }}
                     />
                   </RadioGroup>
                 </FormControl>
