@@ -31,10 +31,11 @@ export default makeStyles(() => ({
     paddingLeft: "22px",
   },
 
-  GridRadio: {
+  GridRadio: (dark) => ({
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
     paddingLeft: "22px",
-  },
+    color: dark ? "red" : "black",
+  }),
 }));

@@ -90,7 +90,7 @@ const Navbar = () => {
 
   const isLogged = cookies.get("id");
 
-  const { userInfo, loading } = useSelector((state) => state.user);
+  const { userInfo, loadingNav } = useSelector((state) => state.user);
 
   useEffect(() => {
     if (isLogged) {
@@ -98,7 +98,7 @@ const Navbar = () => {
     }
   }, []);
 
-  if (loading) {
+  if (loadingNav) {
     return <NavbarSkelton />;
   }
 

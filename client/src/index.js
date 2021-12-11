@@ -23,13 +23,13 @@ theme = responsiveFontSizes(theme);
 
 ReactDOM.render(
   <React.StrictMode>
-    <ThemeProvider theme={theme}>
-      <Provider store={store}>
-        <StateContextProvider>
+    <Provider store={store}>
+      <StateContextProvider>
+        <ThemeProvider theme={theme}>
           <App />
-        </StateContextProvider>
-      </Provider>
-    </ThemeProvider>
+        </ThemeProvider>
+      </StateContextProvider>
+    </Provider>
   </React.StrictMode>,
   document.getElementById("root")
 );

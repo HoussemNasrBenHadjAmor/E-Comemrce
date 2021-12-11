@@ -2,8 +2,13 @@ import React from "react";
 
 import { useGoogleLogout } from "react-google-login";
 import Cookies from "universal-cookie";
+import { useStateContext } from "../../context/StateContextProvider";
+
+import useStyles from "./styles";
 
 const Home = () => {
+  const { dark } = useStateContext();
+  const classes = useStyles(dark);
   const cookie = new Cookies();
   const onLogoutSuccess = (res) => {
     console.log("res", res);
@@ -16,7 +21,7 @@ const Home = () => {
     onLogoutSuccess,
   });
   return (
-    <div>
+    <div className={classes.backGround}>
       <h1>Home</h1>
       <h1>Home</h1>
       <h1>Home</h1>

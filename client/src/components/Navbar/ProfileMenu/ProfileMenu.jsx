@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 
 import { useSelector } from "react-redux";
 
+import { useStateContext } from "../../../context/StateContextProvider";
+
 import {
   Typography,
   MenuItem,
@@ -16,7 +18,11 @@ import {
   CssBaseline,
   IconButton,
   Radio,
+  FormControlLabel,
+  FormControl,
+  RadioGroup,
 } from "@mui/material";
+
 import useStyles from "./styles";
 
 import SettingsIcon from "@mui/icons-material/Settings";
@@ -31,6 +37,8 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 
+import Cookies from "universal-cookie";
+
 const ProfileMenu = ({
   menuId,
   anchorEl,
@@ -42,8 +50,10 @@ const ProfileMenu = ({
   handleCloseDisplayMenuAndProfileMenu,
   signOut,
 }) => {
-  const classes = useStyles();
   const { userInfo } = useSelector((state) => state.user);
+  const { setDark, dark } = useStateContext();
+  const classes = useStyles(dark);
+  const cookies = new Cookies();
   return (
     <>
       <CssBaseline />
@@ -94,12 +104,36 @@ const ProfileMenu = ({
             <Grid item className={classes.GridDisplay}>
               <Grid className={classes.GridRadio}>
                 <Typography>Off</Typography>
-                <Radio name="Radio" label="Off" checked />
+                <FormControl>
+                  <RadioGroup>
+                    <FormControlLabel
+                      control={<Radio />}
+                      label=""
+                      checked={dark ? false : true}
+                      onChange={() => {
+                        setDark(false);
+                        cookies.set("darkMode", false);
+                      }}
+                    />
+                  </RadioGroup>
+                </FormControl>
               </Grid>
 
               <Grid className={classes.GridRadio}>
                 <Typography>On</Typography>
-                <Radio name="Radio" label="On" />
+                <FormControl>
+                  <RadioGroup>
+                    <FormControlLabel
+                      control={<Radio />}
+                      label=""
+                      checked={dark ? true : false}
+                      onChange={() => {
+                        setDark(true);
+                        cookies.set("darkMode", true);
+                      }}
+                    />
+                  </RadioGroup>
+                </FormControl>
               </Grid>
             </Grid>
           </>
