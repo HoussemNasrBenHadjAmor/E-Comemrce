@@ -82,7 +82,15 @@ const Navbar = () => {
     setAnchorEl(event.currentTarget);
   };
 
-  const signOut = () => {
+  const signOut = async () => {
+    const gapi = window.gapi;
+    const GoogleAuth = gapi.auth2.getAuthInstance();
+    const isConnectedWithGoogle = GoogleAuth.currentUser.Mb.Ba;
+
+    if (isConnectedWithGoogle) {
+      await GoogleAuth.disconnect();
+      await GoogleAuth.signOut();
+    }
     dispatch(logout());
   };
 

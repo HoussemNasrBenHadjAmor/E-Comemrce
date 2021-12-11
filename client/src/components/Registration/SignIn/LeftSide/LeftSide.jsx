@@ -53,6 +53,8 @@ const LeftSide = () => {
       dispatch(googleLogin({ idToken: res.tokenId }));
     },
     clientId: process.env.REACT_APP_GOOGLE_AUTH_KEY,
+    isSignedIn: false,
+    autoLoad: false,
   });
 
   const verifyFields = () => {
