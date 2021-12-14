@@ -36,10 +36,16 @@ import MenuIcon from "@mui/icons-material/Menu";
 
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 
+import LightModeIcon from "@mui/icons-material/LightMode";
+
+import Brightness4Icon from "@mui/icons-material/Brightness4";
+
+import NightlightIcon from "@mui/icons-material/Nightlight";
+
 import useStyles from "./styles";
 
 const Navbar = () => {
-  const { dark } = useStateContext();
+  const { dark, setDark } = useStateContext();
 
   const classes = useStyles(dark);
 
@@ -229,6 +235,28 @@ const Navbar = () => {
               >
                 Sign In
               </Button>
+
+              <Grid paddingLeft="10px">
+                {!dark ? (
+                  <IconButton
+                    onClick={() => {
+                      setDark(true);
+                      cookies.set("darkMode", true, { path: "/" });
+                    }}
+                  >
+                    <LightModeIcon />
+                  </IconButton>
+                ) : (
+                  <IconButton
+                    onClick={() => {
+                      setDark(false);
+                      cookies.set("darkMode", false, { path: "/" });
+                    }}
+                  >
+                    <Brightness4Icon />
+                  </IconButton>
+                )}
+              </Grid>
             </Grid>
           )}
         </Toolbar>

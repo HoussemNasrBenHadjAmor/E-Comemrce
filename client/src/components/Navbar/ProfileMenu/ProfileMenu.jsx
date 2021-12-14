@@ -106,7 +106,7 @@ const ProfileMenu = ({
                 className={classes.GridRadio}
                 onClick={() => {
                   setDark(false);
-                  cookies.set("darkMode", false);
+                  cookies.set("darkMode", false, { path: "/" });
                 }}
                 style={{ cursor: "pointer" }}
               >
@@ -126,7 +126,7 @@ const ProfileMenu = ({
                 className={classes.GridRadio}
                 onClick={() => {
                   setDark(true);
-                  cookies.set("darkMode", true);
+                  cookies.set("darkMode", true, { path: "/" });
                 }}
                 style={{ cursor: "pointer" }}
               >
