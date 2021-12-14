@@ -2,10 +2,14 @@ import React from "react";
 
 import { Container, Grid, TextField, Button, Typography } from "@mui/material";
 
+import { useStateContext } from "../../../context/StateContextProvider";
+
 import useStyles from "./Styles";
 
 const ContactForm = () => {
-  const classes = useStyles();
+  const { dark } = useStateContext();
+
+  const classes = useStyles(dark);
 
   // const [fields, setFields] = useState({});
 
@@ -25,9 +29,9 @@ const ContactForm = () => {
           <Typography
             paragraph
             align="center"
-            className={classes.paragraph}
             fontSize="18px"
             gutterBottom
+            color="text.secondary"
           >
             Keep track of what's happening with your data, change permissions,
             and run reports against your data anywhere in the world. Keep track

@@ -2,11 +2,15 @@ import React from "react";
 
 import { Grid, Typography, Button } from "@mui/material";
 
+import { useStateContext } from "../../../context/StateContextProvider";
+
 import me from "../../../assests/img/me.jpg";
 
 import useStyles from "./styles";
 const OurTeam = () => {
-  const classes = useStyles();
+  const { dark } = useStateContext();
+
+  const classes = useStyles(dark);
 
   const team = [
     {
@@ -46,9 +50,10 @@ const OurTeam = () => {
     <div className={classes.paddingYContainer}>
       <Typography
         variant="h6"
-        className={classes.title}
+        align="center"
         fontWeight="500"
         gutterBottom
+        color="text.secondary"
       >
         OUR TEAM
       </Typography>
@@ -58,11 +63,11 @@ const OurTeam = () => {
       </Typography>
 
       <Typography
-        className={classes.title}
         variant="h6"
         fontWeight="400"
         gutterBottom
         align="center"
+        color="text.secondary"
       >
         Our focus is always on finding the best people to work with. Our bar is
         high, but you look ready to take on the challenge.
@@ -94,6 +99,8 @@ const OurTeam = () => {
                   fontWeight="400"
                   className={classes.personMission}
                   textAlign="left"
+                  color="text.secondary"
+                  fontSize="1rem"
                 >
                   {mission}
                 </Typography>

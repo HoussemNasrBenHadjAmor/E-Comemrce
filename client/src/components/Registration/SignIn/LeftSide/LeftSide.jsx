@@ -4,6 +4,10 @@ import { useGoogleLogin } from "react-google-login";
 
 import { useDispatch, useSelector } from "react-redux";
 
+import { useStateContext } from "../../../../context/StateContextProvider";
+
+import { googleLogin, login } from "../../../../store/actions/auth";
+
 import { Link } from "react-router-dom";
 
 import useStyles from "./styles";
@@ -16,10 +20,10 @@ import GoogleIcon from "@mui/icons-material/Google";
 
 import FacebookIcon from "@mui/icons-material/Facebook";
 
-import { googleLogin, login } from "../../../../store/actions/auth";
-
 const LeftSide = () => {
-  const classes = useStyles();
+  const { dark } = useStateContext();
+
+  const classes = useStyles(dark);
 
   const dispatch = useDispatch();
 
@@ -116,21 +120,13 @@ const LeftSide = () => {
   return (
     <div className={classes.container}>
       <Grid item xs={12} paddingBottom="30px">
-        <Typography
-          className={classes.smallTitle}
-          gutterBottom
-          fontWeight="500"
-        >
+        <Typography gutterBottom fontWeight="500" color="text.secondary">
           LOGIN
         </Typography>
         <Typography variant="h4" fontWeight="700" gutterBottom>
           Connect again
         </Typography>
-        <Typography
-          className={classes.smallTitle}
-          gutterBottom
-          fontWeight="500"
-        >
+        <Typography gutterBottom fontWeight="500" color="text.secondary">
           Login for shopping.
         </Typography>
       </Grid>
@@ -154,6 +150,7 @@ const LeftSide = () => {
             error={emailError}
             helperText={emailTextHelper}
             value={user.email}
+            className={classes.TextField}
           />
         </Grid>
 
@@ -174,9 +171,10 @@ const LeftSide = () => {
             <Typography
               variant="subtitle2"
               marginBottom="16px"
-              color="crimson !important"
-              className={classes.Typography}
-              sx={{ display: { xs: "none", sm: "flex" } }}
+              className={classes.ForgetPassword}
+              sx={{
+                display: { xs: "none", sm: "flex" },
+              }}
               component={Link}
               to="/auth/forgot-password"
             >
@@ -194,6 +192,7 @@ const LeftSide = () => {
             error={passwordError}
             helperText={passwordTextHelper}
             value={user.password}
+            className={classes.TextField}
           />
         </Grid>
       </Grid>
@@ -201,8 +200,7 @@ const LeftSide = () => {
       <Grid item display={{ xs: "flex", sm: "none" }} marginTop="15px">
         <Typography
           variant="subtitle2"
-          color="crimson !important"
-          className={classes.Typography}
+          className={classes.ForgetPassword}
           component={Link}
           to="/auth/forgot-password"
         >
@@ -225,10 +223,7 @@ const LeftSide = () => {
           variant="subtitle2"
           component={Link}
           to="/auth/sign-up"
-          className={classes.Typography}
-          sx={{
-            marginTop: { sm: "10px" },
-          }}
+          className={classes.HaveAccount}
         >
           Don't have an account yet ?
         </Typography>
@@ -246,7 +241,7 @@ const LeftSide = () => {
 
       <Grid item paddingY="10px">
         <Divider variant="middle">
-          <Typography variant="subtitle1" marginX="5px" color="GrayText">
+          <Typography variant="subtitle1" marginX="5px" color="text.secondary">
             Or
           </Typography>
         </Divider>
@@ -258,7 +253,9 @@ const LeftSide = () => {
           startIcon={<GoogleIcon />}
           fullWidth
           onClick={signIn}
-          sx={{ textTransform: "none" }}
+          sx={{
+            textTransform: "none",
+          }}
         >
           Login With Google
         </Button>
@@ -269,7 +266,9 @@ const LeftSide = () => {
           variant="outlined"
           startIcon={<FacebookIcon />}
           fullWidth
-          sx={{ textTransform: "none" }}
+          sx={{
+            textTransform: "none",
+          }}
         >
           Login With Facebook
         </Button>

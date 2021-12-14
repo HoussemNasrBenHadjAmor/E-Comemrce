@@ -1,17 +1,18 @@
 import { makeStyles } from "@mui/styles";
 
+import * as darkColor from "../../../../utilities/DarkModeColors";
+
 export default makeStyles((theme) => ({
   Typography: {
-    color: "rgb(30,32,35) !important",
     fontSize: "0.875rem !important",
     fontWeight: "500 !important",
     opacity: "0.98",
     textDecoration: "none",
   },
 
-  smallTitle: {
-    color: "rgb(103, 119, 136) !important",
-  },
+  TextField: (dark) => ({
+    backgroundColor: dark && darkColor.darkBackGroundPaper,
+  }),
 
   Button: {
     padding: "10px 30px 10px 30px !important",

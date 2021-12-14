@@ -14,12 +14,12 @@ const ErrorPage = () => {
       padding="0px 20px"
       height="81vh"
     >
-      <Typography variant="h1" color="GrayText" gutterBottom>
+      <Typography variant="h1" color="text.primary" gutterBottom>
         404
       </Typography>
       <Typography
         variant="h5"
-        color="ButtonShadow"
+        color="text.primary"
         gutterBottom
         textAlign="center"
       >
@@ -27,7 +27,7 @@ const ErrorPage = () => {
       </Typography>
       <Typography
         variant="subtitle1"
-        color="CaptionText"
+        color="text.secondary"
         gutterBottom
         textAlign="center"
       >
@@ -35,7 +35,7 @@ const ErrorPage = () => {
       </Typography>
       <Typography
         variant="subtitle1"
-        color="CaptionText"
+        color="text.secondary"
         gutterBottom
         textAlign="center"
       >

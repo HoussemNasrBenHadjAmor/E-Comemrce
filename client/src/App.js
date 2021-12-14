@@ -1,8 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
-import { BrowserRouter, Switch, Route, useLocation } from "react-router-dom";
-
-import NProgress from "react-nprogress";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 import LoggedRoute from "./LoggedRoute";
 
@@ -27,6 +25,8 @@ import {
   Skelton,
 } from "./components";
 
+import ScrollToTop from "./ScrollToTop";
+
 const App = () => {
   // const location = useLocation();
 
@@ -49,22 +49,24 @@ const App = () => {
   return (
     <BrowserRouter>
       <Navbar />
-      <Switch>
-        <LoggedRoute exact path="/auth/sign-in" component={SignIn} />
-        <LoggedRoute exact path="/auth/sign-up" component={SignUp} />
-        <Route exact path="/products" component={Products} />
-        <Route exact path="/cart" component={Cart} />
-        <ProtectedRoute exact path="/profile" component={Profile} />
-        <Route exact path="/categories" component={Categories} />
-        <Route exact path="/settings" component={Settings} />
-        <Route exact path="/about" component={About} />
-        <Route exact path="/contact" component={Contact} />
-        <Route exact path="/faq" component={Faq} />
-        <Route exact path="/test" component={Test} />
-        <Route exact path="/skelton" component={Skelton} />
-        <ProtectedRoute exact path="/" component={Home} />
-        <Route component={ErrorPage} />
-      </Switch>
+      <ScrollToTop>
+        <Switch>
+          <LoggedRoute exact path="/auth/sign-in" component={SignIn} />
+          <LoggedRoute exact path="/auth/sign-up" component={SignUp} />
+          <Route exact path="/products" component={Products} />
+          <Route exact path="/cart" component={Cart} />
+          <ProtectedRoute exact path="/profile" component={Profile} />
+          <Route exact path="/categories" component={Categories} />
+          <Route exact path="/settings" component={Settings} />
+          <Route exact path="/about" component={About} />
+          <Route exact path="/contact" component={Contact} />
+          <Route exact path="/faq" component={Faq} />
+          <Route exact path="/test" component={Test} />
+          <Route exact path="/skelton" component={Skelton} />
+          <ProtectedRoute exact path="/" component={Home} />
+          <Route component={ErrorPage} />
+        </Switch>
+      </ScrollToTop>
       <Footer />
     </BrowserRouter>
   );

@@ -16,8 +16,12 @@ import {
 
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
+import { useStateContext } from "../../context/StateContextProvider";
+
 const Faq = () => {
-  const classes = useStyles();
+  const { dark } = useStateContext();
+
+  const classes = useStyles(dark);
 
   const faqList = [
     {

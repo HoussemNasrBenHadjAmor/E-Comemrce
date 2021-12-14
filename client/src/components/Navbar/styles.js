@@ -1,5 +1,9 @@
 import { makeStyles } from "@mui/styles";
 
+import * as lightColor from "../../utilities/LightModeColors";
+
+import * as darkColor from "../../utilities/DarkModeColors";
+
 const drawerWidth = 0;
 
 export default makeStyles((theme) => ({
@@ -43,17 +47,19 @@ export default makeStyles((theme) => ({
     marginRight: "10px",
   },
 
-  GridProfile: {
+  GridProfile: (dark) => ({
     alignItems: "center",
     flexDirection: "flex",
     padding: "3px 8px 3px 5px",
     cursor: "pointer",
     textDecoration: "none",
     "&:hover": {
-      backgroundColor: "rgba(243,229,245,0.7)",
+      backgroundColor: dark
+        ? `${darkColor.darkHover}`
+        : `${lightColor.lightHover}`,
       borderRadius: "100px",
     },
-  },
+  }),
 
   button: { textTransform: "initial !important" },
 }));

@@ -1,5 +1,9 @@
 import { makeStyles } from "@mui/styles";
 
+import * as darkColor from "../../../../utilities/DarkModeColors";
+
+import { red, blue } from "@mui/material/colors";
+
 export default makeStyles((theme) => ({
   container: {
     [theme.breakpoints.up("md")]: {
@@ -7,15 +11,26 @@ export default makeStyles((theme) => ({
     },
   },
   Typography: {
-    color: "rgb(30,32,35) !important",
     fontSize: "0.875rem !important",
     fontWeight: "500 !important",
-    opacity: "0.98",
     textDecoration: "none",
   },
 
-  smallTitle: {
-    color: "rgb(103, 119, 136) !important",
+  HaveAccount: {
+    fontSize: "0.875rem !important",
+    fontWeight: "500 !important",
+    textDecoration: "none",
+    color: blue[400],
+    [theme.breakpoints.up("sm")]: {
+      marginTop: "10px !important",
+    },
+  },
+
+  ForgetPassword: {
+    fontSize: "0.875rem !important",
+    fontWeight: "500 !important",
+    textDecoration: "none",
+    color: red[300],
   },
 
   Button: {
@@ -29,4 +44,8 @@ export default makeStyles((theme) => ({
       marginTop: "10px !important",
     },
   },
+
+  TextField: (dark) => ({
+    backgroundColor: dark && darkColor.darkBackGroundPaper,
+  }),
 }));

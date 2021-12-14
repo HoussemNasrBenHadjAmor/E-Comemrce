@@ -3,12 +3,16 @@ import React from "react";
 import LeftSide from "./LeftSide/LeftSide";
 import RightSide from "./RightSide/RightSide";
 
+import { useStateContext } from "../../../context/StateContextProvider";
+
 import { Grid, Typography } from "@mui/material";
 
 import useStyles from "./styles";
 
 const OurStory = () => {
-  const classes = useStyles();
+  const { dark } = useStateContext();
+
+  const classes = useStyles(dark);
   return (
     <>
       <Grid
@@ -30,7 +34,11 @@ const OurStory = () => {
           <Typography variant="h5" fontWeight="700">
             Who are we?
           </Typography>
-          <Typography paragraph className={classes.paragraph}>
+          <Typography
+            paragraph
+            className={classes.paragraph}
+            color="text.secondary"
+          >
             Our sign up is simple. We only require your basic company
             information and what type of data storage you want. Our sign up is
             dead simple. We only require your basic company information and what
@@ -41,7 +49,11 @@ const OurStory = () => {
           <Typography variant="h5" fontWeight="700">
             Our process
           </Typography>
-          <Typography paragraph className={classes.paragraph}>
+          <Typography
+            paragraph
+            className={classes.paragraph}
+            color="text.secondary"
+          >
             We support bulk uploading via SQL, integrations with most data
             storage products, or you can use our API. Simply select where you'd
             like to transfer your data and we'll being the process of migrating

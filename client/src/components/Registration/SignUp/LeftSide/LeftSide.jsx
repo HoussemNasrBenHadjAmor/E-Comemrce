@@ -4,7 +4,11 @@ import { Link } from "react-router-dom";
 
 import useStyles from "./styles";
 
+import { useStateContext } from "../../../../context/StateContextProvider";
+
 import { Grid, Button, Typography, TextField, Divider } from "@mui/material";
+
+import { blue } from "@mui/material/colors";
 
 import LoadingButton from "@mui/lab/LoadingButton";
 
@@ -19,7 +23,9 @@ import { signup } from "../../../../store/actions/auth";
 import { useHistory } from "react-router-dom";
 
 const LeftSide = () => {
-  const classes = useStyles();
+  const { dark } = useStateContext();
+
+  const classes = useStyles(dark);
 
   const history = useHistory();
 
@@ -30,8 +36,6 @@ const LeftSide = () => {
   );
 
   const [errorMessage, setErrorMessage] = useState("");
-
-  const [isUserSigned, setIsUserSigned] = useState(false);
 
   const [user, setUser] = useState({
     email: "",
@@ -167,21 +171,13 @@ const LeftSide = () => {
   return (
     <>
       <Grid item xs={12} paddingBottom="30px">
-        <Typography
-          className={classes.smallTitle}
-          gutterBottom
-          fontWeight="500"
-        >
+        <Typography gutterBottom fontWeight="500" color="text.secondary">
           SIGNUP
         </Typography>
         <Typography variant="h4" fontWeight="700" gutterBottom>
           Create an account
         </Typography>
-        <Typography
-          className={classes.smallTitle}
-          gutterBottom
-          fontWeight="500"
-        >
+        <Typography gutterBottom fontWeight="500" color="text.secondary">
           Fill out the form to get started.
         </Typography>
       </Grid>
@@ -205,6 +201,7 @@ const LeftSide = () => {
             required
             error={errorFirstName}
             helperText={firstNameHelperText}
+            className={classes.TextField}
           />
         </Grid>
 
@@ -226,6 +223,7 @@ const LeftSide = () => {
             onChange={handleChange}
             error={errorLastName}
             helperText={lastNameHelperText}
+            className={classes.TextField}
           />
         </Grid>
 
@@ -247,6 +245,7 @@ const LeftSide = () => {
             onChange={handleChange}
             error={errorEmail}
             helperText={emailHelperText}
+            className={classes.TextField}
           />
         </Grid>
 
@@ -268,6 +267,7 @@ const LeftSide = () => {
             onChange={handleChange}
             error={errorPassword}
             helperText={passwordHelperText}
+            className={classes.TextField}
           />
         </Grid>
 
@@ -289,6 +289,7 @@ const LeftSide = () => {
             onChange={handleChange}
             error={errorPassword2}
             helperText={password2HelperText}
+            className={classes.TextField}
           />
         </Grid>
       </Grid>
@@ -310,6 +311,7 @@ const LeftSide = () => {
           component={Link}
           to="/auth/sign-in"
           className={classes.Typography}
+          color={blue[400]}
           sx={{
             marginBottom: { xs: "10px" },
             marginTop: { sm: "10px" },
@@ -330,7 +332,7 @@ const LeftSide = () => {
 
       <Grid item paddingY="10px">
         <Divider variant="middle">
-          <Typography variant="subtitle1" marginX="5px" color="GrayText">
+          <Typography variant="subtitle1" marginX="5px" color="text.secondary">
             Or
           </Typography>
         </Divider>

@@ -4,6 +4,8 @@ import { Link, useLocation } from "react-router-dom";
 
 import Cookies from "universal-cookie";
 
+import { useStateContext } from "../../context/StateContextProvider";
+
 import {
   Typography,
   AppBar,
@@ -37,7 +39,9 @@ import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import useStyles from "./styles";
 
 const Navbar = () => {
-  const classes = useStyles();
+  const { dark } = useStateContext();
+
+  const classes = useStyles(dark);
 
   const dispatch = useDispatch();
 
@@ -84,13 +88,19 @@ const Navbar = () => {
 
   const signOut = async () => {
     const gapi = window.gapi;
-    const GoogleAuth = gapi.auth2.getAuthInstance();
-    const isConnectedWithGoogle = GoogleAuth.currentUser.Mb.Ba;
 
-    if (isConnectedWithGoogle) {
-      await GoogleAuth.disconnect();
-      await GoogleAuth.signOut();
+    if (gapi) {
+      if (gapi.auth2) {
+        const GoogleAuth = gapi.auth2.getAuthInstance();
+        const isConnectedWithGoogle = GoogleAuth.currentUser.Mb.Ba;
+
+        if (isConnectedWithGoogle) {
+          await GoogleAuth.disconnect();
+          await GoogleAuth.signOut();
+        }
+      }
     }
+
     dispatch(logout());
   };
 
@@ -129,7 +139,7 @@ const Navbar = () => {
             to="/"
             variant="h6"
             className={classes.title}
-            color="inherit"
+            color="text.primary"
           >
             HNBHAStore
           </Typography>
@@ -147,6 +157,7 @@ const Navbar = () => {
                   className={classes.GridProfile}
                   component={Link}
                   to="/profile"
+                  color="text.primary"
                 >
                   <Avatar
                     className={classes.Avatar}
@@ -155,7 +166,7 @@ const Navbar = () => {
                     {!userInfo?.profilePhoto && userInfo?.firstName[0]}
                   </Avatar>
 
-                  <Typography color="initial">{userInfo?.firstName}</Typography>
+                  <Typography>{userInfo?.firstName}</Typography>
                 </Grid>
               </Box>
 

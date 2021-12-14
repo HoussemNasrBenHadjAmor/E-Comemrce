@@ -1,5 +1,8 @@
 import { makeStyles } from "@mui/styles";
 
+import * as darkColor from "../../utilities/DarkModeColors";
+import * as lightColor from "../../utilities/LightModeColors";
+
 export default makeStyles((theme) => ({
   Container: {
     padding: "100px 80px 0px 80px",
@@ -19,17 +22,13 @@ export default makeStyles((theme) => ({
     },
   },
 
-  FAQTitle: {
-    color: "rgb(103, 119, 136)",
+  FAQTitle: (dark) => ({
+    color: !dark ? lightColor.lightSecondaryText : darkColor.darkSecondaryText,
     paddingBottom: "10px",
-  },
+  }),
 
   Title: {
     paddingBottom: "10px",
-  },
-
-  Paper: {
-    // boxShadow: "rgb(140,152,164,0.25)",
   },
 
   LastGrid: {

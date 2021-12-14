@@ -83,7 +83,7 @@ const ProfileMenu = ({
               <Typography variant="h5">Display & Accessibility</Typography>
             </div>
 
-            <MenuItem onClick={handleDisplayMenuClose}>
+            <MenuItem className={classes.disableHover}>
               <ListItemIcon>
                 <DarkModeIcon />
               </ListItemIcon>
@@ -92,8 +92,8 @@ const ProfileMenu = ({
 
             <Grid item className={classes.GridDisplay}>
               <Typography
-                variant="subtitle2"
-                color="#999"
+                variant="body1"
+                color="text.secondary"
                 className={classes.text}
               >
                 Adjust the appearance of the app to reduce glare and give your
@@ -145,11 +145,16 @@ const ProfileMenu = ({
           </>
         ) : (
           <>
-            <MenuItem onClick={handleMenuClose} component={Link} to="/profile">
+            <MenuItem
+              onClick={handleMenuClose}
+              component={Link}
+              to="/profile"
+              className={classes.MenuItem}
+              style={{ height: "auto" }}
+            >
               <ListItemIcon>
                 <Avatar
-                  alt="Remy Sharp"
-                  sx={{ width: 60, height: 60 }}
+                  alt="profilePhoto"
                   className={classes.avatar}
                   src={userInfo?.profilePhoto ? userInfo.profilePhoto : null}
                 >
@@ -174,7 +179,11 @@ const ProfileMenu = ({
 
                 <Grid item xs={12}>
                   <ListItemText>
-                    <Typography variant="body2" color="GrayText">
+                    <Typography
+                      variant="body1"
+                      color="text.secondary"
+                      fontSize={14.5}
+                    >
                       See your profile
                     </Typography>
                   </ListItemText>
@@ -184,7 +193,12 @@ const ProfileMenu = ({
 
             <Divider variant="middle" color="lightGrey" />
 
-            <MenuItem onClick={handleMenuClose} component={Link} to="/settings">
+            <MenuItem
+              onClick={handleMenuClose}
+              component={Link}
+              to="/settings"
+              className={classes.MenuItem}
+            >
               <ListItemIcon>
                 <SettingsIcon />
               </ListItemIcon>
@@ -193,7 +207,10 @@ const ProfileMenu = ({
 
             <Divider variant="middle" color="lightGrey" />
 
-            <MenuItem onClick={handleDisplayMenuOpen}>
+            <MenuItem
+              onClick={handleDisplayMenuOpen}
+              className={classes.MenuItem}
+            >
               <ListItemIcon>
                 <NightsStayIcon />
               </ListItemIcon>
@@ -211,6 +228,7 @@ const ProfileMenu = ({
                 handleMenuClose();
                 signOut();
               }}
+              className={classes.MenuItem}
             >
               <ListItemIcon>
                 <LogoutIcon />

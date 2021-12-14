@@ -1,19 +1,17 @@
 import { makeStyles } from "@mui/styles";
 
+import * as darkColor from "../../../utilities/DarkModeColors";
+
 export default makeStyles((theme) => ({
-  BigContainer: {
+  BigContainer: (dark) => ({
     paddingTop: "100px",
-    backgroundColor: "rgb(247, 250, 255)",
+    backgroundColor: !dark ? "rgb(247, 250, 255)" : "none",
     minHeight: "100vh",
-  },
+  }),
   Container: {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-  },
-
-  paragraph: {
-    color: "rgb(103, 119, 136)",
   },
 
   Grid: {
@@ -32,9 +30,9 @@ export default makeStyles((theme) => ({
     margin: "0 auto",
   },
 
-  TextField: {
-    backgroundColor: "rgb(255,255,255)",
-  },
+  TextField: (dark) => ({
+    backgroundColor: !dark ? "rgb(255,255,255)" : darkColor.darkBackGroundPaper,
+  }),
 
   Span: {
     padding: "10px 0px",

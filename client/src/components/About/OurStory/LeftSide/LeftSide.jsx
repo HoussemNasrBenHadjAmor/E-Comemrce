@@ -4,8 +4,12 @@ import { Typography } from "@mui/material";
 
 import useStyles from "./styles";
 
+import { useStateContext } from "../../../../context/StateContextProvider";
+
 const LeftSide = () => {
-  const classes = useStyles();
+  const { dark } = useStateContext();
+
+  const classes = useStyles(dark);
   return (
     <div>
       <Typography variant="h4" fontWeight="700">

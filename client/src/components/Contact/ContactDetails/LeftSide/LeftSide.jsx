@@ -4,19 +4,38 @@ import { Grid, Typography } from "@mui/material";
 
 import useStyles from "./styles";
 
+import { useStateContext } from "../../../../context/StateContextProvider";
+
 import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
 import EmailIcon from "@mui/icons-material/Email";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 
 const LeftSide = () => {
-  const classes = useStyles();
+  const { dark } = useStateContext();
+
+  const classes = useStyles(dark);
 
   return (
     <>
       <Typography variant="h4" gutterBottom fontWeight="700">
         Contact Details
       </Typography>
-      <Typography paragraph gutterBottom className={classes.paragraph}>
+      <Typography
+        gutterBottom
+        className={classes.paragraph}
+        color="text.secondary"
+      >
+        Rather than worrying about switching offices every couple years, you can
+        instead stay in the same location and grow-up from your shared coworking
+        space to an office that takes up an entire floor.
+      </Typography>
+
+      <Typography
+        paragraph
+        gutterBottom
+        className={classes.paragraph}
+        color="text.secondary"
+      >
         Rather than worrying about switching offices every couple years, you can
         instead stay in the same location and grow-up from your shared coworking
         space to an office that takes up an entire floor.
