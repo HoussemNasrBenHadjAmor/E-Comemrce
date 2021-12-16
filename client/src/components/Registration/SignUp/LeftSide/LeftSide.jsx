@@ -23,7 +23,7 @@ import { signup } from "../../../../store/actions/auth";
 import { useHistory } from "react-router-dom";
 
 const LeftSide = () => {
-  const { dark } = useStateContext();
+  const { dark, t } = useStateContext();
 
   const classes = useStyles(dark);
 
@@ -73,7 +73,8 @@ const LeftSide = () => {
 
   const verifyFields = () => {
     let errorField = false;
-    const text = "Field Required*";
+    const text = t("field_required");
+    const passwordNotMatch = t("password_not_same");
     try {
       if (user.firstName === "") {
         setErrorFirstName(true);
@@ -129,8 +130,8 @@ const LeftSide = () => {
         if (user.password !== user.password2) {
           setErrorPassword(true);
           setErrorPassword2(true);
-          setPasswordHelperText("Password Not Match !");
-          setPassword2HelperText("Password Not Match !");
+          setPasswordHelperText(passwordNotMatch);
+          setPassword2HelperText(passwordNotMatch);
           errorField = true;
         }
       }
@@ -172,13 +173,13 @@ const LeftSide = () => {
     <>
       <Grid item xs={12} paddingBottom="30px">
         <Typography gutterBottom fontWeight="500" color="text.secondary">
-          SIGNUP
+          {t("sign_page_l1")}
         </Typography>
         <Typography variant="h4" fontWeight="700" gutterBottom>
-          Create an account
+          {t("sign_page_l2")}
         </Typography>
         <Typography gutterBottom fontWeight="500" color="text.secondary">
-          Fill out the form to get started.
+          {t("sign_page_l3")}
         </Typography>
       </Grid>
 
@@ -189,13 +190,13 @@ const LeftSide = () => {
             marginBottom="16px"
             className={classes.Typography}
           >
-            Enter your first name
+            {t("sign_page_l4")}
           </Typography>
           <TextField
             id="firstName"
             name="firstName"
             type="text"
-            label="First Name"
+            label={t("sign_page_l4_t")}
             fullWidth
             onChange={handleChange}
             required
@@ -211,13 +212,13 @@ const LeftSide = () => {
             marginBottom="16px"
             className={classes.Typography}
           >
-            Enter your last name
+            {t("sign_page_l4_2")}
           </Typography>
           <TextField
             id="lastName"
             name="lastName"
             type="text"
-            label="Last Name"
+            label={t("sign_page_l4_2_t")}
             fullWidth
             required
             onChange={handleChange}
@@ -233,13 +234,13 @@ const LeftSide = () => {
             marginBottom="16px"
             className={classes.Typography}
           >
-            Enter your email
+            {t("sign_page_l5")}
           </Typography>
           <TextField
             id="Email"
             name="email"
             type="text"
-            label="Email"
+            label={t("sign_page_l5_2")}
             fullWidth
             required
             onChange={handleChange}
@@ -255,13 +256,13 @@ const LeftSide = () => {
             marginBottom="16px"
             className={classes.Typography}
           >
-            Enter your password
+            {t("sign_page_l6")}
           </Typography>
           <TextField
             id="password"
             name="password"
             type="password"
-            label="Password"
+            label={t("sign_page_l6_2")}
             fullWidth
             required
             onChange={handleChange}
@@ -277,13 +278,13 @@ const LeftSide = () => {
             marginBottom="16px"
             className={classes.Typography}
           >
-            Repeat your password
+            {t("sign_page_l7")}
           </Typography>
           <TextField
             id="password2"
             name="password2"
             type="password"
-            label="Repeat Password"
+            label={t("sign_page_l7_2")}
             fullWidth
             required
             onChange={handleChange}
@@ -317,7 +318,7 @@ const LeftSide = () => {
             marginTop: { sm: "10px" },
           }}
         >
-          Already have an account ?
+          {t("sign_page_l8")}
         </Typography>
         <LoadingButton
           variant="contained"
@@ -326,14 +327,14 @@ const LeftSide = () => {
           onClick={handleClick}
           loading={loading}
         >
-          Sign Up
+          {t("sign_page_l8_2")}
         </LoadingButton>
       </Grid>
 
       <Grid item paddingY="10px">
         <Divider variant="middle">
           <Typography variant="subtitle1" marginX="5px" color="text.secondary">
-            Or
+            {t("login_page_l9")}
           </Typography>
         </Divider>
       </Grid>
@@ -347,7 +348,7 @@ const LeftSide = () => {
             textTransform: "none",
           }}
         >
-          Sign Up With Google
+          {t("sign_page_l9")}
         </Button>
       </Grid>
 
@@ -360,7 +361,7 @@ const LeftSide = () => {
             textTransform: "none",
           }}
         >
-          Sign Up With Facebook
+          {t("sign_page_l10")}
         </Button>
       </Grid>
     </>

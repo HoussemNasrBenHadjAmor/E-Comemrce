@@ -28,6 +28,8 @@ import { getUser } from "../../store/actions/user";
 
 import ProfileMenu from "./ProfileMenu/ProfileMenu";
 
+import LanguageOption from "./LanguageOption/LanguageOption";
+
 import MenuLeft from "./Menu/Menu";
 
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
@@ -40,12 +42,12 @@ import LightModeIcon from "@mui/icons-material/LightMode";
 
 import Brightness4Icon from "@mui/icons-material/Brightness4";
 
-import NightlightIcon from "@mui/icons-material/Nightlight";
+import LanguageIcon from "@mui/icons-material/Language";
 
 import useStyles from "./styles";
 
 const Navbar = () => {
-  const { dark, setDark } = useStateContext();
+  const { dark, setDark, t } = useStateContext();
 
   const classes = useStyles(dark);
 
@@ -61,7 +63,11 @@ const Navbar = () => {
 
   const [anchorEl, setAnchorEl] = useState(null);
 
+  const [languageEl, setLanguageEl] = useState(null);
+
   const isMenuOpen = Boolean(anchorEl);
+
+  const isLanguageOptionOpen = Boolean(languageEl);
 
   const handleCloseDisplayMenuAndProfileMenu = () => {
     setAnchorEl(null);
@@ -92,23 +98,36 @@ const Navbar = () => {
     setAnchorEl(event.currentTarget);
   };
 
+  const handleLanguageOpen = (e) => {
+    setLanguageEl(e.currentTarget);
+  };
+
+  const handleCloseLanguageOption = () => {
+    setLanguageEl(null);
+  };
+
   const signOut = async () => {
     const gapi = window.gapi;
 
     if (gapi) {
-      if (gapi.auth2) {
-        const GoogleAuth = gapi.auth2.getAuthInstance();
-        const isConnectedWithGoogle = GoogleAuth.currentUser.Mb.Ba;
+      gapi.load("auth2", async () => {
+        const GoogleAuth = await gapi.auth2.init({
+          client_id: process.env.REACT_APP_GOOGLE_AUTH_KEY,
+        });
+        //   const isConnectedWithGoogle = GoogleAuth.currentUser.Mb.Ba;
+
+        const isConnectedWithGoogle = await GoogleAuth.isSignedIn.get();
 
         if (isConnectedWithGoogle) {
-          await GoogleAuth.disconnect();
-          await GoogleAuth.signOut();
+          GoogleAuth.disconnect();
+          GoogleAuth.signOut();
         }
-      }
+      });
     }
-
     dispatch(logout());
   };
+
+  const languageOptionId = "language-option-id";
 
   const menuId = "primary-search-account-menu";
 
@@ -206,35 +225,73 @@ const Navbar = () => {
               </Box>
             </Grid>
           ) : (
-            <Grid display="flex">
-              <Button
-                className={classes.button}
-                variant={
-                  location.pathname === "/auth/sign-up"
-                    ? "contained"
-                    : "outlined"
-                }
-                sx={{
-                  display: { xs: "none", sm: "flex" },
-                }}
-                component={Link}
-                to="/auth/sign-up"
-              >
-                Sign Up
-              </Button>
-              <Button
-                className={classes.button}
-                variant={
-                  location.pathname === "/auth/sign-up"
-                    ? "outlined"
-                    : "contained"
-                }
-                sx={{ marginLeft: "10px" }}
-                component={Link}
-                to="/auth/sign-in"
-              >
-                Sign In
-              </Button>
+            <Grid
+              display="flex"
+              sx={{
+                alignItems: { xs: "center", sm: "initial" },
+                justifyContent: {
+                  xs: "center",
+                  sm: "initial",
+                },
+              }}
+            >
+              <Grid sx={{ display: { sm: "flex", xs: "none" } }}>
+                <Button
+                  className={classes.button}
+                  variant={
+                    location.pathname === "/auth/sign-up"
+                      ? "contained"
+                      : "outlined"
+                  }
+                  component={Link}
+                  to="/auth/sign-up"
+                >
+                  {t("signUp_button")}
+                </Button>
+
+                <Button
+                  className={classes.button}
+                  variant={
+                    location.pathname === "/auth/sign-up"
+                      ? "outlined"
+                      : "contained"
+                  }
+                  sx={{ marginLeft: "10px" }}
+                  component={Link}
+                  to="/auth/sign-in"
+                >
+                  {t("signIn_button")}
+                </Button>
+              </Grid>
+
+              <Grid sx={{ display: { sm: "none" } }}>
+                <Button
+                  className={classes.button}
+                  variant="contained"
+                  component={Link}
+                  to={
+                    location.pathname === "/auth/sign-in"
+                      ? "/auth/sign-up"
+                      : "/auth/sign-in"
+                  }
+                >
+                  {location.pathname === "/auth/sign-up"
+                    ? t("signIn_button")
+                    : t("signUp_button")}
+                </Button>
+              </Grid>
+
+              <Grid paddingX="5px" sx={{ display: { sm: "flex", xs: "none" } }}>
+                <IconButton
+                  edge="end"
+                  aria-controls={languageOptionId}
+                  aria-haspopup="true"
+                  onClick={handleLanguageOpen}
+                  color="inherit"
+                >
+                  <LanguageIcon />
+                </IconButton>
+              </Grid>
 
               <Grid paddingLeft="10px">
                 {!dark ? (
@@ -274,6 +331,13 @@ const Navbar = () => {
           handleCloseDisplayMenuAndProfileMenu
         }
         signOut={signOut}
+      />
+
+      <LanguageOption
+        languageOptionId={languageOptionId}
+        languageEl={languageEl}
+        isLanguageOptionOpen={isLanguageOptionOpen}
+        handleCloseLanguageOption={handleCloseLanguageOption}
       />
 
       <MenuLeft

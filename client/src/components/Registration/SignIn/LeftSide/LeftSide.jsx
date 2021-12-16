@@ -21,7 +21,7 @@ import GoogleIcon from "@mui/icons-material/Google";
 import FacebookIcon from "@mui/icons-material/Facebook";
 
 const LeftSide = () => {
-  const { dark } = useStateContext();
+  const { dark, t } = useStateContext();
 
   const classes = useStyles(dark);
 
@@ -63,10 +63,11 @@ const LeftSide = () => {
 
   const verifyFields = () => {
     let errorField = false;
+    const text = t("field_required");
     try {
       if (user.email === "") {
         setEmailError(true);
-        setEmailTextHelper("Field Required*");
+        setEmailTextHelper(text);
         errorField = true;
       } else if (user.email !== "") {
         setEmailError(false);
@@ -76,7 +77,7 @@ const LeftSide = () => {
 
       if (user.password === "") {
         setPasswordError(true);
-        setPasswordTextHelper("Field Required*");
+        setPasswordTextHelper(text);
         errorField = true;
       } else if (user.password !== "") {
         setPasswordError(false);
@@ -121,13 +122,13 @@ const LeftSide = () => {
     <div className={classes.container}>
       <Grid item xs={12} paddingBottom="30px">
         <Typography gutterBottom fontWeight="500" color="text.secondary">
-          LOGIN
+          {t("login_page_l1")}
         </Typography>
         <Typography variant="h4" fontWeight="700" gutterBottom>
-          Connect again
+          {t("login_page_l2")}
         </Typography>
         <Typography gutterBottom fontWeight="500" color="text.secondary">
-          Login for shopping.
+          {t("login_page_l3")}
         </Typography>
       </Grid>
 
@@ -138,13 +139,13 @@ const LeftSide = () => {
             marginBottom="16px"
             className={classes.Typography}
           >
-            Enter your email
+            {t("login_page_l4")}
           </Typography>
           <TextField
             id="email"
             name="email"
             type="text"
-            label="Email"
+            label={t("login_page_l5")}
             fullWidth
             onChange={handleChange}
             error={emailError}
@@ -165,7 +166,7 @@ const LeftSide = () => {
               marginBottom="16px"
               className={classes.Typography}
             >
-              Enter your password
+              {t("login_page_l6")}
             </Typography>
 
             <Typography
@@ -178,7 +179,7 @@ const LeftSide = () => {
               component={Link}
               to="/auth/forgot-password"
             >
-              Forgot your password ?
+              {t("login_page_l6_2")}
             </Typography>
           </Grid>
 
@@ -186,7 +187,7 @@ const LeftSide = () => {
             id="password"
             name="password"
             type="password"
-            label="Password"
+            label={t("login_page_l7")}
             fullWidth
             onChange={handleChange}
             error={passwordError}
@@ -204,7 +205,7 @@ const LeftSide = () => {
           component={Link}
           to="/auth/forgot-password"
         >
-          Forgot your password ?
+          {t("login_page_l6_2")}
         </Typography>
       </Grid>
 
@@ -225,7 +226,7 @@ const LeftSide = () => {
           to="/auth/sign-up"
           className={classes.HaveAccount}
         >
-          Don't have an account yet ?
+          {t("login_page_l8")}
         </Typography>
 
         <LoadingButton
@@ -235,14 +236,14 @@ const LeftSide = () => {
           onClick={handleLogin}
           loading={loading}
         >
-          Login
+          {t("login_page_l8_2")}
         </LoadingButton>
       </Grid>
 
       <Grid item paddingY="10px">
         <Divider variant="middle">
           <Typography variant="subtitle1" marginX="5px" color="text.secondary">
-            Or
+            {t("login_page_l9")}
           </Typography>
         </Divider>
       </Grid>
@@ -257,7 +258,7 @@ const LeftSide = () => {
             textTransform: "none",
           }}
         >
-          Login With Google
+          {t("login_page_l10")}
         </Button>
       </Grid>
 
@@ -270,7 +271,7 @@ const LeftSide = () => {
             textTransform: "none",
           }}
         >
-          Login With Facebook
+          {t("login_page_l11")}
         </Button>
       </Grid>
     </div>
