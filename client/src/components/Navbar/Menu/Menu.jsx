@@ -22,7 +22,11 @@ import InfoIcon from "@mui/icons-material/Info";
 import CategoryIcon from "@mui/icons-material/Category";
 import ContactSupportIcon from "@mui/icons-material/ContactSupport";
 
+import { useStateContext } from "../../../context/StateContextProvider";
+
 const MenuLeft = ({ handleDrawerClose, open }) => {
+  const { t } = useStateContext();
+
   const classes = useStyles();
 
   return (
@@ -49,7 +53,7 @@ const MenuLeft = ({ handleDrawerClose, open }) => {
             <ListItemIcon>
               <HomeIcon />
             </ListItemIcon>
-            <ListItemText primary="Home" />
+            <ListItemText primary={t("menu_l1")} />
           </ListItem>
           <ListItem
             button
@@ -60,7 +64,7 @@ const MenuLeft = ({ handleDrawerClose, open }) => {
             <ListItemIcon>
               <CategoryIcon />
             </ListItemIcon>
-            <ListItemText primary="Categories" />
+            <ListItemText primary={t("menu_l2")} />
           </ListItem>
           <ListItem
             button
@@ -71,7 +75,7 @@ const MenuLeft = ({ handleDrawerClose, open }) => {
             <ListItemIcon>
               <InfoIcon />
             </ListItemIcon>
-            <ListItemText primary="About Us" />
+            <ListItemText primary={t("menu_l3")} />
           </ListItem>
           <ListItem
             button
@@ -82,7 +86,7 @@ const MenuLeft = ({ handleDrawerClose, open }) => {
             <ListItemIcon>
               <MailIcon />
             </ListItemIcon>
-            <ListItemText primary="Contact Us" />
+            <ListItemText primary={t("menu_l4")} />
           </ListItem>
 
           <ListItem
@@ -94,7 +98,7 @@ const MenuLeft = ({ handleDrawerClose, open }) => {
             <ListItemIcon>
               <ContactSupportIcon />
             </ListItemIcon>
-            <ListItemText primary="FAQ" />
+            <ListItemText primary={t("menu_l5")} />
           </ListItem>
         </List>
       </Drawer>

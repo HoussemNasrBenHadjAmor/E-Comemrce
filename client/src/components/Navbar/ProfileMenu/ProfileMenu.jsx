@@ -37,7 +37,11 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 
+import LanguageIcon from "@mui/icons-material/Language";
+
 import Cookies from "universal-cookie";
+
+import FlagIcon from "../../ReactFlags/Flags";
 
 const ProfileMenu = ({
   menuId,
@@ -51,9 +55,27 @@ const ProfileMenu = ({
   signOut,
 }) => {
   const { userInfo } = useSelector((state) => state.user);
-  const { setDark, dark } = useStateContext();
+
+  const { setDark, dark, currentLanguage, changeAppLanguage, t } =
+    useStateContext();
+
+  const languages = [
+    {
+      name: t("languages_en"),
+      code: "gb",
+      languageCode: "en",
+    },
+    {
+      name: t("languages_fr"),
+      code: "fr",
+      languageCode: "fr",
+    },
+  ];
+
   const classes = useStyles(dark);
+
   const cookies = new Cookies();
+
   return (
     <>
       <CssBaseline />
@@ -80,14 +102,14 @@ const ProfileMenu = ({
               <IconButton onClick={handleDisplayMenuClose}>
                 <ChevronLeftIcon fontSize="large" />
               </IconButton>
-              <Typography variant="h5">Display & Accessibility</Typography>
+              <Typography variant="h5">{t("profile_menu_l5")}</Typography>
             </div>
 
             <MenuItem className={classes.disableHover}>
               <ListItemIcon>
                 <DarkModeIcon />
               </ListItemIcon>
-              <ListItemText>Dark Mode</ListItemText>
+              <ListItemText>{t("profile_menu_l6")}</ListItemText>
             </MenuItem>
 
             <Grid item className={classes.GridDisplay}>
@@ -96,8 +118,7 @@ const ProfileMenu = ({
                 color="text.secondary"
                 className={classes.text}
               >
-                Adjust the appearance of the app to reduce glare and give your
-                eyes a break.
+                {t("profile_menu_l7")}
               </Typography>
             </Grid>
 
@@ -110,7 +131,7 @@ const ProfileMenu = ({
                 }}
                 style={{ cursor: "pointer" }}
               >
-                <Typography>Off</Typography>
+                <Typography>{t("profile_menu_l8")}</Typography>
                 <FormControl>
                   <RadioGroup>
                     <FormControlLabel
@@ -130,7 +151,7 @@ const ProfileMenu = ({
                 }}
                 style={{ cursor: "pointer" }}
               >
-                <Typography>On</Typography>
+                <Typography>{t("profile_menu_l9")}</Typography>
                 <FormControl>
                   <RadioGroup>
                     <FormControlLabel
@@ -142,6 +163,56 @@ const ProfileMenu = ({
                 </FormControl>
               </Grid>
             </Grid>
+
+            <MenuItem className={classes.disableHover}>
+              <ListItemIcon>
+                <LanguageIcon />
+              </ListItemIcon>
+              <ListItemText>{t("profile_menu_l10")}</ListItemText>
+            </MenuItem>
+
+            <Grid item className={classes.GridDisplay}>
+              <Typography
+                variant="body1"
+                color="text.secondary"
+                className={classes.text}
+              >
+                {t("profile_menu_l11")}
+              </Typography>
+            </Grid>
+
+            {languages.map(({ name, code, languageCode }) => (
+              <Grid item className={classes.GridDisplay}>
+                <Grid
+                  key={name}
+                  className={classes.GridRadio}
+                  onClick={() => {
+                    currentLanguage !== languageCode && changeAppLanguage();
+                  }}
+                  sx={{
+                    opacity: currentLanguage === languageCode ? "0.5" : "1",
+                    cursor: "pointer",
+                  }}
+                >
+                  <Grid display="flex" alignItems="center">
+                    <Typography paddingRight={"10px"}>{name}</Typography>
+                    <FlagIcon code={code} size="1x" />
+                  </Grid>
+
+                  <FormControl>
+                    <RadioGroup>
+                      <FormControlLabel
+                        control={<Radio />}
+                        label=""
+                        checked={
+                          currentLanguage === languageCode ? true : false
+                        }
+                      />
+                    </RadioGroup>
+                  </FormControl>
+                </Grid>
+              </Grid>
+            ))}
           </>
         ) : (
           <>
@@ -184,7 +255,7 @@ const ProfileMenu = ({
                       color="text.secondary"
                       fontSize={14.5}
                     >
-                      See your profile
+                      {t("profile_menu_l1")}
                     </Typography>
                   </ListItemText>
                 </Grid>
@@ -202,7 +273,7 @@ const ProfileMenu = ({
               <ListItemIcon>
                 <SettingsIcon />
               </ListItemIcon>
-              <ListItemText>Settings & Privacy</ListItemText>
+              <ListItemText>{t("profile_menu_l2")}</ListItemText>
             </MenuItem>
 
             <Divider variant="middle" color="lightGrey" />
@@ -215,7 +286,7 @@ const ProfileMenu = ({
                 <NightsStayIcon />
               </ListItemIcon>
 
-              <ListItemText>Display Mode</ListItemText>
+              <ListItemText>{t("profile_menu_l3")}</ListItemText>
 
               <ListItemIcon>
                 <ChevronRightIcon fontSize="large" />
@@ -234,7 +305,7 @@ const ProfileMenu = ({
                 <LogoutIcon />
               </ListItemIcon>
 
-              <ListItemText>Log Out</ListItemText>
+              <ListItemText>{t("profile_menu_l4")}</ListItemText>
             </MenuItem>
           </>
         )}

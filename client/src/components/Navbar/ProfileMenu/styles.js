@@ -9,7 +9,7 @@ export default makeStyles(() => ({
       paddingTop: "5px",
       maxWidth: "330px",
       minWidth: "330px",
-      maxHeight: "300px",
+      maxHeight: "450px",
       minHeight: "300px",
       margin: "49px 0px 0px",
       paddingLeft: "5px",
