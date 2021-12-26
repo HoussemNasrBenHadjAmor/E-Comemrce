@@ -262,7 +262,7 @@ const ProfileMenu = ({
               </Grid>
             </MenuItem>
 
-            <Divider variant="middle" color="lightGrey" />
+            <Divider variant="middle" />
 
             <MenuItem
               onClick={handleMenuClose}
@@ -276,7 +276,7 @@ const ProfileMenu = ({
               <ListItemText>{t("profile_menu_l2")}</ListItemText>
             </MenuItem>
 
-            <Divider variant="middle" color="lightGrey" />
+            <Divider variant="middle" />
 
             <MenuItem
               onClick={handleDisplayMenuOpen}
@@ -292,7 +292,7 @@ const ProfileMenu = ({
                 <ChevronRightIcon fontSize="large" />
               </ListItemIcon>
             </MenuItem>
-            <Divider variant="middle" color="lightGrey" />
+            <Divider variant="middle" />
 
             <MenuItem
               onClick={() => {
