@@ -57,7 +57,7 @@ const App = () => {
           <Route exact path="/cart" component={Cart} />
           <ProtectedRoute exact path="/profile" component={Profile} />
           <Route exact path="/categories" component={Categories} />
-          <Route exact path="/settings" component={Settings} />
+          <ProtectedRoute exact path="/settings" component={Settings} />
           <Route exact path="/about" component={About} />
           <Route exact path="/contact" component={Contact} />
           <Route exact path="/faq" component={Faq} />

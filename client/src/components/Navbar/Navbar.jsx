@@ -24,7 +24,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { logout } from "../../store/actions/auth";
 
-import { getUser } from "../../store/actions/user";
+import { getUserForNav } from "../../store/actions/user";
 
 import ProfileMenu from "./ProfileMenu/ProfileMenu";
 
@@ -133,11 +133,11 @@ const Navbar = () => {
 
   const isLogged = cookies.get("id");
 
-  const { userInfo, loadingNav } = useSelector((state) => state.user);
+  const { userInfoNav, loadingNav } = useSelector((state) => state.user);
 
   useEffect(() => {
     if (isLogged) {
-      dispatch(getUser());
+      dispatch(getUserForNav());
     }
   }, []);
 
@@ -186,12 +186,16 @@ const Navbar = () => {
                 >
                   <Avatar
                     className={classes.Avatar}
-                    src={userInfo?.profilePhoto ? userInfo.profilePhoto : null}
+                    src={
+                      userInfoNav?.profilePhoto
+                        ? userInfoNav.profilePhoto
+                        : null
+                    }
                   >
-                    {!userInfo?.profilePhoto && userInfo?.firstName[0]}
+                    {!userInfoNav?.profilePhoto && userInfoNav?.firstName[0]}
                   </Avatar>
 
-                  <Typography>{userInfo?.firstName}</Typography>
+                  <Typography>{userInfoNav?.firstName}</Typography>
                 </Grid>
               </Box>
 

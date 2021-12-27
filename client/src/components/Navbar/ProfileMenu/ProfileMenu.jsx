@@ -54,7 +54,7 @@ const ProfileMenu = ({
   handleCloseDisplayMenuAndProfileMenu,
   signOut,
 }) => {
-  const { userInfo } = useSelector((state) => state.user);
+  const { userInfoNav } = useSelector((state) => state.user);
 
   const { setDark, dark, currentLanguage, changeAppLanguage, t } =
     useStateContext();
@@ -227,9 +227,11 @@ const ProfileMenu = ({
                 <Avatar
                   alt="profilePhoto"
                   className={classes.avatar}
-                  src={userInfo?.profilePhoto ? userInfo.profilePhoto : null}
+                  src={
+                    userInfoNav?.profilePhoto ? userInfoNav.profilePhoto : null
+                  }
                 >
-                  {!userInfo?.profilePhoto && userInfo?.firstName[0]}
+                  {!userInfoNav?.profilePhoto && userInfoNav?.firstName[0]}
                 </Avatar>
               </ListItemIcon>
 
@@ -243,7 +245,7 @@ const ProfileMenu = ({
                 <Grid item xs={12}>
                   <ListItemText>
                     <Typography variant="body1">
-                      {userInfo?.firstName} {userInfo?.lastName}
+                      {userInfoNav?.firstName} {userInfoNav?.lastName}
                     </Typography>
                   </ListItemText>
                 </Grid>

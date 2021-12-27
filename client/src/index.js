@@ -14,7 +14,7 @@ import { Provider } from "react-redux";
 
 import { StateContextProvider } from "./context/StateContextProvider";
 
-import { Loader } from "./components/Loader/Loader";
+import Loader from "./components/Loader/Loader";
 
 import "./index.css";
 
@@ -46,7 +46,7 @@ i18n
   });
 
 ReactDOM.render(
-  <Suspense fallback={Loader}>
+  <Suspense fallback={<Loader height="100vh" />}>
     <React.StrictMode>
       <Provider store={store}>
         <StateContextProvider>
