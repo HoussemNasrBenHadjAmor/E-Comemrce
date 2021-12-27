@@ -74,6 +74,9 @@ export default (auth = initialeState, action) => {
     // case actions.LOADING_PROTECT_ROUTES:
     //   return { ...auth, isLoading: true };
 
+    case actions.REQUEST_PROTECTED_ROUTES:
+      return { ...auth, isLogged: false, isLoading: true };
+
     case actions.SUCCESS_PROTECT_ROUTES:
       return { ...auth, isLogged: true, isLoading: false };
 

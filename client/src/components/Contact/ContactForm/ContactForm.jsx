@@ -21,8 +21,8 @@ const ContactForm = () => {
 
   return (
     <div className={classes.BigContainer}>
-      <Container className={classes.Container}>
-        <Grid item>
+      <Container>
+        <Grid item xs={12}>
           <Typography variant="h4" align="center" fontWeight="500" gutterBottom>
             Can't find the answer you need?
           </Typography>

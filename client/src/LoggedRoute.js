@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import { Route, Redirect } from "react-router-dom";
 
@@ -7,6 +7,7 @@ import Cookies from "universal-cookie";
 import { useDispatch, useSelector } from "react-redux";
 
 import { verifyProtect } from "./store/actions/auth";
+import Loader from "./components/Loader/Loader";
 
 const cookies = new Cookies();
 
@@ -15,7 +16,9 @@ const LoggedRoute = ({ component: Component, ...rest }) => {
 
   const user = useSelector((state) => state.auth);
 
-  const { isLogged } = user;
+  const { isLogged, isLoading } = user;
+
+  const [entered, setEntered] = useState(false);
 
   const id = cookies.get("id");
   const token = cookies.get("token");
@@ -24,6 +27,7 @@ const LoggedRoute = ({ component: Component, ...rest }) => {
   useEffect(() => {
     try {
       if (token && id && refreshToken) {
+        setEntered(true);
         dispatch(verifyProtect());
       } else {
         cookies.remove("id", { path: "/" });
@@ -35,11 +39,19 @@ const LoggedRoute = ({ component: Component, ...rest }) => {
     }
   }, []);
 
+  // if (isLoading && entered) {
+  //   return <Loader />;
+  // }
+
   return (
     <Route
       {...rest}
       render={(props) => {
-        return isLogged ? <Redirect to="/" /> : <Component {...props} />;
+        return id && entered && token && refreshToken ? (
+          <Redirect to="/" />
+        ) : (
+          <Component {...props} />
+        );
       }}
     />
   );

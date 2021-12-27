@@ -131,7 +131,8 @@ const Navbar = () => {
 
   const menuId = "primary-search-account-menu";
 
-  const isLogged = cookies.get("id");
+  const isLogged =
+    cookies.get("id") && cookies.get("token") && cookies.get("refreshToken");
 
   const { userInfoNav, loadingNav } = useSelector((state) => state.user);
 

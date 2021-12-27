@@ -7,6 +7,7 @@ import Cookies from "universal-cookie";
 import { verifyProtect } from "./store/actions/auth";
 
 import { useDispatch, useSelector } from "react-redux";
+import Loader from "./components/Loader/Loader";
 
 const cookies = new Cookies();
 
@@ -36,14 +37,14 @@ const ProtectedRoute = ({ component: Component, ...rest }) => {
   }, []);
 
   if (isLoading && token && id && refreshToken) {
-    return null;
+    return <Loader height="100vh" />;
   }
 
   return (
     <Route
       {...rest}
       render={(props) => {
-        return isLogged && !isLoading ? (
+        return !isLoading && isLogged ? (
           <Component {...props} />
         ) : (
           <Redirect to="/auth/sign-in" />

@@ -8,11 +8,6 @@ export default makeStyles((theme) => ({
     backgroundColor: !dark ? "rgb(247, 250, 255)" : "none",
     minHeight: "100vh",
   }),
-  Container: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-  },
 
   Grid: {
     padding: "15px 5px",

@@ -7,6 +7,7 @@ import * as api from "../../api/authApi";
 const cookie = new Cookies();
 
 export const verifyProtect = () => async (dispatch) => {
+  dispatch({ type: actions.REQUEST_PROTECTED_ROUTES });
   try {
     const data = await api.verifiyProtectRoute();
     dispatch({ type: actions.SUCCESS_PROTECT_ROUTES, payload: data });
@@ -16,6 +17,7 @@ export const verifyProtect = () => async (dispatch) => {
     cookie.remove("id", { path: "/" });
     cookie.remove("token", { path: "/" });
     cookie.remove("refreshToken", { path: "/" });
+    window.location.href = "/auth/sign-in";
     return error;
   }
 };
