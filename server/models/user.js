@@ -4,6 +4,7 @@ const userSchema = mongoose.Schema({
   email: {
     type: String,
     required: true,
+    unique: true,
   },
   firstName: {
     type: String,
@@ -21,6 +22,8 @@ const userSchema = mongoose.Schema({
   phoneNumber: {
     type: Number,
     default: null,
+    // unique: true,
+    // requied: false,
   },
   profilePhoto: {
     type: String,

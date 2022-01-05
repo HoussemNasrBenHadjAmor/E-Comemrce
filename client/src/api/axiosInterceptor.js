@@ -26,6 +26,7 @@ axiosJWT.interceptors.request.use(
   async (config) => {
     let currentDate = new Date();
     const decodedToken = jwt_decode(cookie.get("token"));
+
     if (decodedToken.exp * 1000 < currentDate.getTime()) {
       const res = await refresh();
       config.headers["x-access-token"] = res.newAccessToken;

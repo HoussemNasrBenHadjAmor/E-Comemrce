@@ -105,7 +105,11 @@ const ProfileMenu = ({
               <Typography variant="h5">{t("profile_menu_l5")}</Typography>
             </div>
 
-            <MenuItem className={classes.disableHover}>
+            <MenuItem
+              className={classes.disableHover}
+              disableTouchRipple
+              disableRipple
+            >
               <ListItemIcon>
                 <DarkModeIcon />
               </ListItemIcon>
@@ -164,7 +168,11 @@ const ProfileMenu = ({
               </Grid>
             </Grid>
 
-            <MenuItem className={classes.disableHover}>
+            <MenuItem
+              className={classes.disableHover}
+              disableTouchRipple
+              disableRipple
+            >
               <ListItemIcon>
                 <LanguageIcon />
               </ListItemIcon>
