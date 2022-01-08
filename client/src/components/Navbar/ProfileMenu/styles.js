@@ -24,13 +24,10 @@ export default makeStyles(() => ({
     },
   },
 
-  MenuItem: (dark) => ({
+  MenuItem: {
     minHeight: "50px !important",
-    "&:hover": {
-      backgroundColor: dark ? darkColor.darkHover : lightColor.lightHover,
-      borderRadius: "8px",
-    },
-  }),
+    borderRadius: "8px",
+  },
 
   avatar: {
     marginRight: "10px",

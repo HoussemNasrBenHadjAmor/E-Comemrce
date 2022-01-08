@@ -14,41 +14,29 @@ export const googleLogin = (id) => axios.post(`${url}/google`, id);
 
 export const signup = (data) => axios.post(`${url}/sign`, data);
 
-export const logout = () => {
-  try {
-    const data = axiosJWT.post(
-      `${url}/logout`,
-      {
-        refreshToken: cookie.get("refreshToken"),
+export const logout = () =>
+  axiosJWT.post(
+    `${url}/logout`,
+    {
+      refreshToken: cookie.get("refreshToken"),
+    },
+    {
+      headers: {
+        ["x-access-token"]: cookie.get("token"),
       },
-      {
-        headers: {
-          ["x-access-token"]: cookie.get("token"),
-        },
-      }
-    );
-    return data;
-  } catch (error) {
-    return error;
-  }
-};
+    }
+  );
 
-export const verifiyProtectRoute = () => {
-  try {
-    const data = axiosJWT.post(
-      `${url}/protected`,
-      {
-        refreshToken: cookie.get("refreshToken"),
-        id: cookie.get("id"),
+export const verifiyProtectRoute = () =>
+  axiosJWT.post(
+    `${url}/protected`,
+    {
+      refreshToken: cookie.get("refreshToken"),
+      id: cookie.get("id"),
+    },
+    {
+      headers: {
+        ["x-access-token"]: cookie.get("token"),
       },
-      {
-        headers: {
-          ["x-access-token"]: cookie.get("token"),
-        },
-      }
-    );
-    return data;
-  } catch (error) {
-    return error;
-  }
-};
+    }
+  );
