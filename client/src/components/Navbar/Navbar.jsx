@@ -280,9 +280,9 @@ const Navbar = () => {
                       : "/auth/sign-in"
                   }
                 >
-                  {location.pathname === "/auth/sign-up"
-                    ? t("signIn_button")
-                    : t("signUp_button")}
+                  {location.pathname === "/auth/sign-in"
+                    ? t("signUp_button")
+                    : t("signIn_button")}
                 </Button>
               </Grid>
 

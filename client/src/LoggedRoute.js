@@ -4,20 +4,13 @@ import { Route, Redirect } from "react-router-dom";
 
 import Cookies from "universal-cookie";
 
-import { useDispatch, useSelector } from "react-redux";
-
 import { verifyProtect } from "./store/actions/auth";
-import Loader from "./components/Loader/Loader";
+
+// import { Navbar, Footer } from "./components";
 
 const cookies = new Cookies();
 
 const LoggedRoute = ({ component: Component, ...rest }) => {
-  const dispatch = useDispatch();
-
-  const user = useSelector((state) => state.auth);
-
-  const { isLogged, isLoading } = user;
-
   const [entered, setEntered] = useState(false);
 
   const id = cookies.get("id");
@@ -28,7 +21,6 @@ const LoggedRoute = ({ component: Component, ...rest }) => {
     try {
       if (token && id && refreshToken) {
         setEntered(true);
-        dispatch(verifyProtect());
       } else {
         cookies.remove("id", { path: "/" });
         cookies.remove("token", { path: "/" });
@@ -50,7 +42,11 @@ const LoggedRoute = ({ component: Component, ...rest }) => {
         return id && entered && token && refreshToken ? (
           <Redirect to="/" />
         ) : (
-          <Component {...props} />
+          <>
+            {/* <Navbar /> */}
+            <Component {...props} />
+            {/* <Footer /> */}
+          </>
         );
       }}
     />

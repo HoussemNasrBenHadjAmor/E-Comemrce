@@ -46,7 +46,7 @@ i18n
   });
 
 ReactDOM.render(
-  <Suspense fallback={<Loader height="100vh" />}>
+  <Suspense fallback={<Loader notShow />}>
     <React.StrictMode>
       <Provider store={store}>
         <StateContextProvider>

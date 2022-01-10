@@ -177,7 +177,7 @@ const LeftSide = () => {
                 display: { xs: "none", sm: "flex" },
               }}
               component={Link}
-              to="/auth/forgot-password"
+              to="/forgot-password"
             >
               {t("login_page_l6_2")}
             </Typography>
@@ -203,7 +203,7 @@ const LeftSide = () => {
           variant="subtitle2"
           className={classes.ForgetPassword}
           component={Link}
-          to="/auth/forgot-password"
+          to="/forgot-password"
         >
           {t("login_page_l6_2")}
         </Typography>

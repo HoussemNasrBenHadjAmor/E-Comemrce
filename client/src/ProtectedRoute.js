@@ -7,11 +7,14 @@ import Cookies from "universal-cookie";
 import { verifyProtect } from "./store/actions/auth";
 
 import { useDispatch, useSelector } from "react-redux";
+
 import Loader from "./components/Loader/Loader";
+
+// import { Navbar, Footer } from "./components";
 
 const cookies = new Cookies();
 
-const ProtectedRoute = ({ component: Component, ...rest }) => {
+const ProtectedRoute = ({ component: Component, title, ...rest }) => {
   const dispatch = useDispatch();
 
   const user = useSelector((state) => state.auth);
@@ -21,6 +24,10 @@ const ProtectedRoute = ({ component: Component, ...rest }) => {
   const id = cookies.get("id");
   const token = cookies.get("token");
   const refreshToken = cookies.get("refreshToken");
+
+  useEffect(() => {
+    document.title = title;
+  });
 
   useEffect(() => {
     try {
@@ -37,7 +44,7 @@ const ProtectedRoute = ({ component: Component, ...rest }) => {
   }, []);
 
   if (isLoading && token && id && refreshToken) {
-    return <Loader height="100vh" />;
+    return <Loader notShow />;
   }
 
   return (
@@ -45,7 +52,11 @@ const ProtectedRoute = ({ component: Component, ...rest }) => {
       {...rest}
       render={(props) => {
         return !isLoading && isLogged ? (
-          <Component {...props} />
+          <>
+            {/* <Navbar /> */}
+            <Component {...props} />
+            {/* <Footer /> */}
+          </>
         ) : (
           <Redirect to="/auth/sign-in" />
         );
