@@ -6,7 +6,19 @@ import useStyles from "./styles";
 
 import { useStateContext } from "../../../../context/StateContextProvider";
 
-import { Grid, Button, Typography, TextField, Divider } from "@mui/material";
+import {
+  Grid,
+  Button,
+  Typography,
+  TextField,
+  Divider,
+  IconButton,
+  InputLabel,
+  OutlinedInput,
+  FormControl,
+  InputAdornment,
+  FormHelperText,
+} from "@mui/material";
 
 import { blue } from "@mui/material/colors";
 
@@ -15,6 +27,10 @@ import LoadingButton from "@mui/lab/LoadingButton";
 import GoogleIcon from "@mui/icons-material/Google";
 
 import FacebookIcon from "@mui/icons-material/Facebook";
+
+import VisibilityIcon from "@mui/icons-material/Visibility";
+
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 
 import { useDispatch, useSelector } from "react-redux";
 
@@ -67,6 +83,18 @@ const LeftSide = () => {
 
   const [clicked, setClicked] = useState(false);
 
+  const [showPass, setShowPass] = useState(false);
+
+  const [showPass2, setShowPass2] = useState(false);
+
+  const [empty, setEmpty] = useState(true);
+
+  const [focusInput, setFocusInput] = useState(false);
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
+
   const handleChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
@@ -75,73 +103,83 @@ const LeftSide = () => {
     let errorField = false;
     const text = t("field_required");
     const passwordNotMatch = t("password_not_same");
-    try {
-      if (user.firstName === "") {
-        setErrorFirstName(true);
-        setFirstNameHelperText(text);
-        errorField = true;
-      } else {
-        setErrorFirstName(false);
-        setFirstNameHelperText("");
-        errorField = false;
-      }
 
-      if (user.lastName === "") {
-        setErrorLastName(true);
-        setLastNameHelperText(text);
-        errorField = true;
-      } else {
-        setErrorLastName(false);
-        setLastNameHelperText("");
-        errorField = false;
-      }
-
-      if (user.email === "") {
-        setErrorEmail(true);
-        setEmailHelperText(text);
-        errorField = true;
-      } else {
-        setErrorEmail(false);
-        setEmailHelperText("");
-        errorField = false;
-      }
-
-      if (user.password === "") {
-        setErrorPassword(true);
-        setPasswordHelperText(text);
-        errorField = true;
-      } else {
-        setErrorPassword(false);
-        setPasswordHelperText("");
-        errorField = false;
-      }
-
-      if (user.password2 === "") {
-        setErrorPassword2(true);
-        setPassword2HelperText(text);
-        errorField = true;
-      } else {
-        setErrorPassword2(false);
-        setPassword2HelperText("");
-        errorField = false;
-      }
-
-      if (user.password !== "" && user.password2 !== "") {
-        if (user.password !== user.password2) {
-          setErrorPassword(true);
-          setErrorPassword2(true);
-          setPasswordHelperText(passwordNotMatch);
-          setPassword2HelperText(passwordNotMatch);
-          errorField = true;
-        }
-      }
-      return errorField;
-    } catch (error) {
-      return error;
+    if (user.firstName === "") {
+      errorField = true;
+      setErrorFirstName(true);
+      setFirstNameHelperText(text);
+    } else {
+      errorField = false;
+      setErrorFirstName(false);
+      setFirstNameHelperText("");
     }
+
+    if (user.lastName === "") {
+      errorField = true;
+      setErrorLastName(true);
+      setLastNameHelperText(text);
+    } else {
+      errorField = false;
+      setErrorLastName(false);
+      setLastNameHelperText("");
+    }
+
+    if (user.email === "") {
+      errorField = true;
+      setErrorEmail(true);
+      setEmailHelperText(text);
+    } else {
+      errorField = false;
+      setErrorEmail(false);
+      setEmailHelperText("");
+    }
+
+    if (user.password === "") {
+      errorField = true;
+      setErrorPassword(true);
+      setPasswordHelperText(text);
+    } else {
+      errorField = false;
+      setErrorPassword(false);
+      setPasswordHelperText("");
+    }
+
+    if (user.password2 === "") {
+      errorField = true;
+      setErrorPassword2(true);
+      setPassword2HelperText(text);
+    } else {
+      errorField = false;
+      setErrorPassword2(false);
+      setPassword2HelperText("");
+    }
+
+    if (user.password !== "" && user.password2 !== "") {
+      if (user.password !== user.password2) {
+        console.log("mech kifkif");
+        errorField = true;
+        setErrorPassword(true);
+        setErrorPassword2(true);
+        setPasswordHelperText(passwordNotMatch);
+        setPassword2HelperText(passwordNotMatch);
+      }
+    }
+
+    if (
+      user.email === "" ||
+      user.firstName === "" ||
+      user.lastName === "" ||
+      user.password === "" ||
+      user.password2 === ""
+    ) {
+      errorField = true;
+    }
+
+    return errorField;
   };
 
-  const handleClick = () => {
+  const handleClick = (e) => {
+    e.preventDefault();
     const errorField = verifyFields();
     try {
       if (!errorField) {
@@ -158,6 +196,20 @@ const LeftSide = () => {
       return error;
     }
   };
+
+  useEffect(() => {
+    const listener = (event) => {
+      if (focusInput) {
+        if (event.code === "Enter" || event.code === "NumpadEnter") {
+          handleClick(event);
+        }
+      }
+    };
+    document.addEventListener("keydown", listener);
+    return () => {
+      document.removeEventListener("keydown", listener);
+    };
+  }, [focusInput]);
 
   useEffect(() => {
     if (clicked && signErrorMessage) {
@@ -193,6 +245,7 @@ const LeftSide = () => {
             >
               {t("sign_page_l4")}
             </Typography>
+
             <TextField
               id="firstName"
               name="firstName"
@@ -204,6 +257,8 @@ const LeftSide = () => {
               error={errorFirstName}
               helperText={firstNameHelperText}
               className={classes.TextField}
+              onFocus={() => setFocusInput(true)}
+              onBlur={() => setFocusInput(false)}
             />
           </Grid>
 
@@ -215,6 +270,7 @@ const LeftSide = () => {
             >
               {t("sign_page_l4_2")}
             </Typography>
+
             <TextField
               id="lastName"
               name="lastName"
@@ -226,6 +282,8 @@ const LeftSide = () => {
               error={errorLastName}
               helperText={lastNameHelperText}
               className={classes.TextField}
+              onFocus={() => setFocusInput(true)}
+              onBlur={() => setFocusInput(false)}
             />
           </Grid>
 
@@ -237,6 +295,7 @@ const LeftSide = () => {
             >
               {t("sign_page_l5")}
             </Typography>
+
             <TextField
               id="Email"
               name="email"
@@ -248,6 +307,8 @@ const LeftSide = () => {
               error={errorEmail}
               helperText={emailHelperText}
               className={classes.TextField}
+              onFocus={() => setFocusInput(true)}
+              onBlur={() => setFocusInput(false)}
             />
           </Grid>
 
@@ -259,18 +320,45 @@ const LeftSide = () => {
             >
               {t("sign_page_l6")}
             </Typography>
-            <TextField
-              id="password"
-              name="password"
-              type="password"
-              label={t("sign_page_l6_2")}
-              fullWidth
-              required
-              onChange={handleChange}
-              error={errorPassword}
-              helperText={passwordHelperText}
-              className={classes.TextField}
-            />
+
+            <FormControl variant="outlined" fullWidth>
+              <InputLabel htmlFor="outlined-adornment-password">
+                {t("sign_page_l6_2") + " *"}
+              </InputLabel>
+              <OutlinedInput
+                id="password"
+                name="password"
+                type={showPass ? "text" : "password"}
+                label={t("sign_page_l6_2") + " *"}
+                onChange={handleChange}
+                required
+                error={errorPassword}
+                className={classes.TextField}
+                autoComplete="on"
+                onFocus={() => setFocusInput(true)}
+                onBlur={() => setFocusInput(false)}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={() => {
+                        setShowPass(showPass ? false : true);
+                      }}
+                      onMouseDown={handleMouseDownPassword}
+                      edge="end"
+                    >
+                      {showPass ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                    </IconButton>
+                  </InputAdornment>
+                }
+              />
+
+              {errorPassword && (
+                <FormHelperText error id="password">
+                  {passwordHelperText}
+                </FormHelperText>
+              )}
+            </FormControl>
           </Grid>
 
           <Grid item xs={12}>
@@ -281,18 +369,45 @@ const LeftSide = () => {
             >
               {t("sign_page_l7")}
             </Typography>
-            <TextField
-              id="password2"
-              name="password2"
-              type="password"
-              label={t("sign_page_l7_2")}
-              fullWidth
-              required
-              onChange={handleChange}
-              error={errorPassword2}
-              helperText={password2HelperText}
-              className={classes.TextField}
-            />
+
+            <FormControl variant="outlined" fullWidth>
+              <InputLabel htmlFor="password2">
+                {t("sign_page_l7_2") + " *"}
+              </InputLabel>
+              <OutlinedInput
+                type={showPass2 ? "text" : "password"}
+                id="password2"
+                name="password2"
+                label={t("sign_page_l7_2") + " *"}
+                fullWidth
+                required
+                onChange={handleChange}
+                error={errorPassword2}
+                className={classes.TextField}
+                autoComplete="on"
+                onFocus={() => setFocusInput(true)}
+                onBlur={() => setFocusInput(false)}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={() => {
+                        setShowPass2(showPass2 ? false : true);
+                      }}
+                      onMouseDown={handleMouseDownPassword}
+                      edge="end"
+                    >
+                      {showPass2 ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                    </IconButton>
+                  </InputAdornment>
+                }
+              />
+              {errorPassword2 && (
+                <FormHelperText error id="password2">
+                  {password2HelperText}
+                </FormHelperText>
+              )}
+            </FormControl>
           </Grid>
         </Grid>
       </form>
@@ -322,11 +437,12 @@ const LeftSide = () => {
         >
           {t("sign_page_l8")}
         </Typography>
+
         <LoadingButton
           variant="contained"
           className={classes.Button}
           color="info"
-          onClick={handleClick}
+          onClick={(e) => handleClick(e)}
           loading={loading}
         >
           {t("sign_page_l8_2")}

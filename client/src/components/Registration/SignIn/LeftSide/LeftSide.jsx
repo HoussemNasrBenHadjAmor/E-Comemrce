@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 
 import { useGoogleLogin } from "react-google-login";
 
@@ -12,13 +12,29 @@ import { Link } from "react-router-dom";
 
 import useStyles from "./styles";
 
-import { Grid, Button, Typography, TextField, Divider } from "@mui/material";
+import {
+  Grid,
+  Button,
+  Typography,
+  TextField,
+  Divider,
+  IconButton,
+  InputLabel,
+  OutlinedInput,
+  FormControl,
+  InputAdornment,
+  FormHelperText,
+} from "@mui/material";
 
 import LoadingButton from "@mui/lab/LoadingButton";
 
 import GoogleIcon from "@mui/icons-material/Google";
 
 import FacebookIcon from "@mui/icons-material/Facebook";
+
+import VisibilityIcon from "@mui/icons-material/Visibility";
+
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 
 const LeftSide = () => {
   const { dark, t } = useStateContext();
@@ -30,6 +46,8 @@ const LeftSide = () => {
   const { userLogged, errorMessage, loading } = useSelector(
     (state) => state.auth
   );
+
+  const searchInputFocus = useRef(null);
 
   const [user, setUser] = useState({
     email: "",
@@ -47,6 +65,14 @@ const LeftSide = () => {
   const [passwordError, setPasswordError] = useState(false);
 
   const [passwordTextHelper, setPasswordTextHelper] = useState("");
+
+  const [showPass, setShowPass] = useState(false);
+
+  const [focusInput, setFocusInput] = useState(false);
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
 
   const handleChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
@@ -85,13 +111,18 @@ const LeftSide = () => {
         errorField = false;
       }
 
+      if (user.password === "" || user.email === "") {
+        errorField = true;
+      }
+
       return errorField;
     } catch (error) {
       return error;
     }
   };
 
-  const handleLogin = () => {
+  const handleLogin = (e) => {
+    e.preventDefault();
     const errorField = verifyFields();
     try {
       if (!errorField) {
@@ -106,6 +137,20 @@ const LeftSide = () => {
       return error;
     }
   };
+
+  useEffect(() => {
+    const listener = (event) => {
+      if (focusInput) {
+        if (event.code === "Enter" || event.code === "NumpadEnter") {
+          handleLogin(event);
+        }
+      }
+    };
+    document.addEventListener("keydown", listener);
+    return () => {
+      document.removeEventListener("keydown", listener);
+    };
+  }, [focusInput]);
 
   useEffect(() => {
     if (userLogged) {
@@ -142,6 +187,7 @@ const LeftSide = () => {
             >
               {t("login_page_l4")}
             </Typography>
+
             <TextField
               id="email"
               name="email"
@@ -153,6 +199,9 @@ const LeftSide = () => {
               helperText={emailTextHelper}
               value={user.email}
               className={classes.TextField}
+              ref={searchInputFocus}
+              onFocus={() => setFocusInput(true)}
+              onBlur={() => setFocusInput(false)}
             />
           </Grid>
 
@@ -184,18 +233,41 @@ const LeftSide = () => {
               </Typography>
             </Grid>
 
-            <TextField
-              id="password"
-              name="password"
-              type="password"
-              label={t("login_page_l7")}
-              fullWidth
-              onChange={handleChange}
-              error={passwordError}
-              helperText={passwordTextHelper}
-              value={user.password}
-              className={classes.TextField}
-            />
+            <FormControl variant="outlined" fullWidth>
+              <InputLabel htmlFor="password">{t("login_page_l7")}</InputLabel>
+              <OutlinedInput
+                id="password"
+                name="password"
+                type={showPass ? "text" : "password"}
+                label={t("login_page_l7") + " *"}
+                onChange={handleChange}
+                error={passwordError}
+                value={user.password}
+                className={classes.TextField}
+                autoComplete="on"
+                onFocus={() => setFocusInput(true)}
+                onBlur={() => setFocusInput(false)}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={() => {
+                        setShowPass(showPass ? false : true);
+                      }}
+                      onMouseDown={handleMouseDownPassword}
+                      edge="end"
+                    >
+                      {showPass ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                    </IconButton>
+                  </InputAdornment>
+                }
+              />
+              {passwordError && (
+                <FormHelperText error id="password">
+                  {passwordTextHelper}
+                </FormHelperText>
+              )}
+            </FormControl>
           </Grid>
         </Grid>
       </form>
@@ -235,7 +307,7 @@ const LeftSide = () => {
           variant="contained"
           className={classes.Button}
           color="info"
-          onClick={handleLogin}
+          onClick={(e) => handleLogin(e)}
           loading={loading}
         >
           {t("login_page_l8_2")}

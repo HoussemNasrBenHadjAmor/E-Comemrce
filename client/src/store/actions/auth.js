@@ -51,7 +51,6 @@ export const signup = (newUser) => async (dispatch) => {
   dispatch({ type: actions.SIGNUP_REQUEST });
   try {
     const data = await api.signup(newUser);
-    console.log("data", data);
     dispatch({ type: actions.SIGNUP_SUCCESS, payload: data });
   } catch (error) {
     dispatch({
