@@ -183,117 +183,119 @@ const LeftSide = () => {
         </Typography>
       </Grid>
 
-      <Grid container spacing={3}>
-        <Grid item xs={12} sm={6}>
-          <Typography
-            variant="subtitle2"
-            marginBottom="16px"
-            className={classes.Typography}
-          >
-            {t("sign_page_l4")}
-          </Typography>
-          <TextField
-            id="firstName"
-            name="firstName"
-            type="text"
-            label={t("sign_page_l4_t")}
-            fullWidth
-            onChange={handleChange}
-            required
-            error={errorFirstName}
-            helperText={firstNameHelperText}
-            className={classes.TextField}
-          />
-        </Grid>
+      <form>
+        <Grid container spacing={3}>
+          <Grid item xs={12} sm={6}>
+            <Typography
+              variant="subtitle2"
+              marginBottom="16px"
+              className={classes.Typography}
+            >
+              {t("sign_page_l4")}
+            </Typography>
+            <TextField
+              id="firstName"
+              name="firstName"
+              type="text"
+              label={t("sign_page_l4_t")}
+              fullWidth
+              onChange={handleChange}
+              required
+              error={errorFirstName}
+              helperText={firstNameHelperText}
+              className={classes.TextField}
+            />
+          </Grid>
 
-        <Grid item xs={12} sm={6}>
-          <Typography
-            variant="subtitle2"
-            marginBottom="16px"
-            className={classes.Typography}
-          >
-            {t("sign_page_l4_2")}
-          </Typography>
-          <TextField
-            id="lastName"
-            name="lastName"
-            type="text"
-            label={t("sign_page_l4_2_t")}
-            fullWidth
-            required
-            onChange={handleChange}
-            error={errorLastName}
-            helperText={lastNameHelperText}
-            className={classes.TextField}
-          />
-        </Grid>
+          <Grid item xs={12} sm={6}>
+            <Typography
+              variant="subtitle2"
+              marginBottom="16px"
+              className={classes.Typography}
+            >
+              {t("sign_page_l4_2")}
+            </Typography>
+            <TextField
+              id="lastName"
+              name="lastName"
+              type="text"
+              label={t("sign_page_l4_2_t")}
+              fullWidth
+              required
+              onChange={handleChange}
+              error={errorLastName}
+              helperText={lastNameHelperText}
+              className={classes.TextField}
+            />
+          </Grid>
 
-        <Grid item xs={12}>
-          <Typography
-            variant="subtitle2"
-            marginBottom="16px"
-            className={classes.Typography}
-          >
-            {t("sign_page_l5")}
-          </Typography>
-          <TextField
-            id="Email"
-            name="email"
-            type="text"
-            label={t("sign_page_l5_2")}
-            fullWidth
-            required
-            onChange={handleChange}
-            error={errorEmail}
-            helperText={emailHelperText}
-            className={classes.TextField}
-          />
-        </Grid>
+          <Grid item xs={12}>
+            <Typography
+              variant="subtitle2"
+              marginBottom="16px"
+              className={classes.Typography}
+            >
+              {t("sign_page_l5")}
+            </Typography>
+            <TextField
+              id="Email"
+              name="email"
+              type="text"
+              label={t("sign_page_l5_2")}
+              fullWidth
+              required
+              onChange={handleChange}
+              error={errorEmail}
+              helperText={emailHelperText}
+              className={classes.TextField}
+            />
+          </Grid>
 
-        <Grid item xs={12}>
-          <Typography
-            variant="subtitle2"
-            marginBottom="16px"
-            className={classes.Typography}
-          >
-            {t("sign_page_l6")}
-          </Typography>
-          <TextField
-            id="password"
-            name="password"
-            type="password"
-            label={t("sign_page_l6_2")}
-            fullWidth
-            required
-            onChange={handleChange}
-            error={errorPassword}
-            helperText={passwordHelperText}
-            className={classes.TextField}
-          />
-        </Grid>
+          <Grid item xs={12}>
+            <Typography
+              variant="subtitle2"
+              marginBottom="16px"
+              className={classes.Typography}
+            >
+              {t("sign_page_l6")}
+            </Typography>
+            <TextField
+              id="password"
+              name="password"
+              type="password"
+              label={t("sign_page_l6_2")}
+              fullWidth
+              required
+              onChange={handleChange}
+              error={errorPassword}
+              helperText={passwordHelperText}
+              className={classes.TextField}
+            />
+          </Grid>
 
-        <Grid item xs={12}>
-          <Typography
-            variant="subtitle2"
-            marginBottom="16px"
-            className={classes.Typography}
-          >
-            {t("sign_page_l7")}
-          </Typography>
-          <TextField
-            id="password2"
-            name="password2"
-            type="password"
-            label={t("sign_page_l7_2")}
-            fullWidth
-            required
-            onChange={handleChange}
-            error={errorPassword2}
-            helperText={password2HelperText}
-            className={classes.TextField}
-          />
+          <Grid item xs={12}>
+            <Typography
+              variant="subtitle2"
+              marginBottom="16px"
+              className={classes.Typography}
+            >
+              {t("sign_page_l7")}
+            </Typography>
+            <TextField
+              id="password2"
+              name="password2"
+              type="password"
+              label={t("sign_page_l7_2")}
+              fullWidth
+              required
+              onChange={handleChange}
+              error={errorPassword2}
+              helperText={password2HelperText}
+              className={classes.TextField}
+            />
+          </Grid>
         </Grid>
-      </Grid>
+      </form>
 
       <Grid display={signErrorMessage ? "flex" : "none"} paddingTop="5px">
         <Typography variant="subtitle2" color="red" fontWeight="700">

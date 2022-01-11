@@ -40,7 +40,7 @@ export const login = (user) => async (dispatch) => {
 
 export const googleLogin = (id) => async (dispatch) => {
   try {
-    const data = await api.googleLogin(id);
+    const { data } = await api.googleLogin(id);
     dispatch({ type: actions.LOGIN_GOOGLE_SUCCESS, payload: data });
   } catch (error) {
     return error;

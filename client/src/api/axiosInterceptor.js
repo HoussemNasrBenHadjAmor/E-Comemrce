@@ -15,7 +15,6 @@ const refresh = async () => {
     const { data: data } = await axios.post(`${url}/refresh`, {
       refreshToken: cookie.get("refreshToken"),
     });
-    // console.log("data", data);
     return data;
   } catch (error) {
     return error;

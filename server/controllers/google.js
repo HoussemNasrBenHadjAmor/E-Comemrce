@@ -1,4 +1,4 @@
-import { OAuth2Client, GoogleAuth } from "google-auth-library";
+import { OAuth2Client } from "google-auth-library";
 
 import jwt from "jsonwebtoken";
 
@@ -61,20 +61,14 @@ export const sign = async (req, res) => {
         .cookie("id", updatedUser._id, {
           path: "/",
           secure: true,
-          priority: "High",
-          domain: "localhost",
         })
         .cookie("token", token, {
           path: "/",
           secure: true,
-          priority: "High",
-          domain: "localhost",
         })
         .cookie("refreshToken", refreshToken, {
           path: "/",
           secure: true,
-          priority: "High",
-          domain: "localhost",
         })
         .status(200)
         .json(updatedUser);

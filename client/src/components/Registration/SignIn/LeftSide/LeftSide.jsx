@@ -132,71 +132,73 @@ const LeftSide = () => {
         </Typography>
       </Grid>
 
-      <Grid container spacing={3}>
-        <Grid item xs={12}>
-          <Typography
-            variant="subtitle2"
-            marginBottom="16px"
-            className={classes.Typography}
-          >
-            {t("login_page_l4")}
-          </Typography>
-          <TextField
-            id="email"
-            name="email"
-            type="text"
-            label={t("login_page_l5")}
-            fullWidth
-            onChange={handleChange}
-            error={emailError}
-            helperText={emailTextHelper}
-            value={user.email}
-            className={classes.TextField}
-          />
-        </Grid>
-
-        <Grid item xs={12}>
-          <Grid
-            display="flex"
-            justifyContent="space-between"
-            alignItems="center"
-          >
+      <form>
+        <Grid container spacing={3}>
+          <Grid item xs={12}>
             <Typography
               variant="subtitle2"
               marginBottom="16px"
               className={classes.Typography}
             >
-              {t("login_page_l6")}
+              {t("login_page_l4")}
             </Typography>
-
-            <Typography
-              variant="subtitle2"
-              marginBottom="16px"
-              className={classes.ForgetPassword}
-              sx={{
-                display: { xs: "none", sm: "flex" },
-              }}
-              component={Link}
-              to="/forgot-password"
-            >
-              {t("login_page_l6_2")}
-            </Typography>
+            <TextField
+              id="email"
+              name="email"
+              type="text"
+              label={t("login_page_l5")}
+              fullWidth
+              onChange={handleChange}
+              error={emailError}
+              helperText={emailTextHelper}
+              value={user.email}
+              className={classes.TextField}
+            />
           </Grid>
 
-          <TextField
-            id="password"
-            name="password"
-            type="password"
-            label={t("login_page_l7")}
-            fullWidth
-            onChange={handleChange}
-            error={passwordError}
-            helperText={passwordTextHelper}
-            value={user.password}
-            className={classes.TextField}
-          />
+          <Grid item xs={12}>
+            <Grid
+              display="flex"
+              justifyContent="space-between"
+              alignItems="center"
+            >
+              <Typography
+                variant="subtitle2"
+                marginBottom="16px"
+                className={classes.Typography}
+              >
+                {t("login_page_l6")}
+              </Typography>
+
+              <Typography
+                variant="subtitle2"
+                marginBottom="16px"
+                className={classes.ForgetPassword}
+                sx={{
+                  display: { xs: "none", sm: "flex" },
+                }}
+                component={Link}
+                to="/forgot-password"
+              >
+                {t("login_page_l6_2")}
+              </Typography>
+            </Grid>
+
+            <TextField
+              id="password"
+              name="password"
+              type="password"
+              label={t("login_page_l7")}
+              fullWidth
+              onChange={handleChange}
+              error={passwordError}
+              helperText={passwordTextHelper}
+              value={user.password}
+              className={classes.TextField}
+            />
+          </Grid>
         </Grid>
-      </Grid>
+      </form>
 
       <Grid item display={{ xs: "flex", sm: "none" }} marginTop="15px">
         <Typography

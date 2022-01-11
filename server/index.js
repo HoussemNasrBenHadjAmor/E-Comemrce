@@ -9,14 +9,23 @@ import { authRouter, userRouter } from "./routes/index.js";
 
 dotenv.config();
 
-db();
+const origin_front = process.env.ORIGIN_FRONT;
+
+const origin_front_local = process.env.ORIGIN_FRONT_LOCAL;
 
 const app = express();
+
+db();
+
+app.set("trust proxy", 1);
 
 app.use(
   cors({
     credentials: true,
+    // origin: [origin_front_local, origin_front],
     origin: "http://localhost:3000",
+    // origin: "https://hnbhastore.netlify.app",
+    // default: origin_front,
   })
 );
 

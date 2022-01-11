@@ -1,5 +1,6 @@
-import axios from "axios";
 import Cookies from "universal-cookie";
+
+import { axiosJWT } from "./axiosInterceptor";
 
 const urlAuth = process.env.REACT_APP_API_AUTH_KEY;
 
@@ -9,7 +10,7 @@ export const verify = async () => {
   try {
     const {
       data: { data },
-    } = await axios.post(`${urlAuth}/protected`, {
+    } = await axiosJWT.post(`${urlAuth}/protected`, {
       id: cookies.get("id"),
       token: cookies.get("token"),
       refreshToken: cookies.get("refreshToken"),
@@ -19,3 +20,10 @@ export const verify = async () => {
     return error;
   }
 };
+
+// export const verify = async () =>
+//   await axiosJWT.post(`${urlAuth}/protected`, {
+//     id: cookies.get("id"),
+//     token: cookies.get("token"),
+//     refreshToken: cookies.get("refreshToken"),
+//   });

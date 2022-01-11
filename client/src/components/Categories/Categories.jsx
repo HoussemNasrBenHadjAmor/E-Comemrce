@@ -27,6 +27,8 @@ const Categories = () => {
     commerce.categories.list().then(({ data }) => {
       setCat(data);
 
+      console.log("data", data);
+
       data?.map((c) => {
         return <CategoriesComponent cat={c} />;
         // console.log("c", c);

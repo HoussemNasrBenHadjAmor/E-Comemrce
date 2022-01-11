@@ -57,9 +57,24 @@ export const login = async (req, res) => {
     });
 
     res
-      .cookie("id", oldUser._id, { path: "/", secure: true })
-      .cookie("token", token, { path: "/", secure: true })
-      .cookie("refreshToken", refreshToken, { path: "/", secure: true })
+      .cookie("id", oldUser._id, {
+        path: "/",
+        secure: true,
+        sameSite: "none",
+        // domain: "hnbhastore.netlify.app",
+      })
+      .cookie("token", token, {
+        path: "/",
+        secure: true,
+        sameSite: "none",
+        // domain: "hnbhastore.netlify.app",
+      })
+      .cookie("refreshToken", refreshToken, {
+        path: "/",
+        secure: true,
+        sameSite: "none",
+        // domain: "hnbhastore.netlify.app",
+      })
       .sendStatus(200);
   } catch (error) {
     res.status(500).json(error);
