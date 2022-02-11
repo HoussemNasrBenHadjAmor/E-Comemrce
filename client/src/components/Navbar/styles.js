@@ -6,10 +6,15 @@ import * as darkColor from "../../utilities/DarkModeColors";
 
 const drawerWidth = 0;
 
+const settingsPath = "/settings";
+
+const anyPath = "";
+
 export default makeStyles((theme) => ({
   appBar: {
     boxShadow: "none",
     borderBottom: "1px solid rgba(0, 0, 0, 0.1)",
+    // marginBottom: "60px !important",
 
     [theme.breakpoints.up("sm")]: {
       width: `calc(100% - ${drawerWidth}px)`,
@@ -62,4 +67,18 @@ export default makeStyles((theme) => ({
   }),
 
   button: { textTransform: "initial !important" },
+
+  // marginProvider: {
+  //   marginBottom: "64px",
+
+  //   // [theme.breakpoints.up("sm")]: {
+  //   //   // paddingTop: "64px",
+  //   //   marginBottom: settingsPath === anyPath ? "64px" : "64px",
+  //   // },
+
+  //   // [theme.breakpoints.down("sm")]: {
+  //   //   // paddingTop: "48px",
+  //   //   marginBottom: settingsPath === anyPath ? "48px" : "48px",
+  //   // },
+  // },
 }));

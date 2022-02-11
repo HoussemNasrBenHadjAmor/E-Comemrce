@@ -7,6 +7,7 @@ export default makeStyles(() => ({
   MenuPadding: {
     "& .MuiMenu-paper": {
       paddingTop: "5px",
+      // width: "100%",
       maxWidth: "330px",
       minWidth: "330px",
       maxHeight: "450px",
@@ -22,6 +23,7 @@ export default makeStyles(() => ({
     "&:hover": {
       backgroundColor: "transparent !important",
     },
+    marginLeft: "-8px",
   },
 
   MenuItem: {
@@ -43,7 +45,7 @@ export default makeStyles(() => ({
   },
 
   GridDisplay: {
-    padding: "0px 30px ",
+    padding: "0px 23px ",
     paddingBottom: "5px",
   },
 

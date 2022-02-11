@@ -26,6 +26,7 @@ import {
   Test,
   Skelton,
   ForgotPass,
+  ViewAndFilter,
 } from "./components";
 
 import ScrollToTop from "./ScrollToTop";
@@ -66,6 +67,14 @@ const App = () => {
               component={Products}
               title="Products | HNBHAStore"
             />
+
+            <SimpleRoute
+              exact
+              path="/category/:id"
+              component={ViewAndFilter}
+              title="Products | HNBHAStore"
+            />
+
             <SimpleRoute
               exact
               path="/cart"

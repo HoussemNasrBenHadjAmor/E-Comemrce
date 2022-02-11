@@ -26,6 +26,8 @@ import { logout } from "../../store/actions/auth";
 
 import { getUserForNav } from "../../store/actions/user";
 
+import { getCategories } from "../../store/actions/category";
+
 import ProfileMenu from "./ProfileMenu/ProfileMenu";
 
 import LanguageOption from "./LanguageOption/LanguageOption";
@@ -136,20 +138,23 @@ const Navbar = () => {
 
   const { userInfoNav, loadingNav } = useSelector((state) => state.user);
 
+  const { loading, categories } = useSelector((state) => state.category);
+
   useEffect(() => {
     if (isLogged) {
       dispatch(getUserForNav());
     }
+    dispatch(getCategories());
   }, []);
 
-  if (loadingNav) {
+  if (loadingNav || loading) {
     return <NavbarSkelton />;
   }
 
   return (
     <>
       <AppBar position="fixed" className={classes.appBar} color="inherit">
-        <Toolbar>
+        <Toolbar className={classes.toolbar}>
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -324,6 +329,11 @@ const Navbar = () => {
         </Toolbar>
       </AppBar>
 
+      {/* <div
+        // className={classes.marginProvider}
+        style={{ marginBottom: "100px" }}
+      ></div> */}
+
       <ProfileMenu
         menuId={menuId}
         anchorEl={anchorEl}
@@ -349,6 +359,7 @@ const Navbar = () => {
         open={open}
         handleDrawerClose={handleDrawerClose}
         handleDrawerOpen={handleDrawerOpen}
+        categories={categories}
       />
     </>
   );

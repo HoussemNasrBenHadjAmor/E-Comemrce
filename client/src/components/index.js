@@ -15,5 +15,6 @@ export { default as Contact } from "./Contact/Contact";
 export { default as Faq } from "./Faq/Faq";
 export { default as Test } from "./Test/Test";
 export { default as Skelton } from "./Navbar/NavbarSkelton/NavbarSkelton";
+export { default as ViewAndFilter } from "./View&Filter/ViewAndFilter";
 
-export {default as ForgotPass} from "./ForgotPass/Forgot"
+export { default as ForgotPass } from "./ForgotPass/Forgot";

@@ -4,4 +4,6 @@ import auth from "./auth";
 
 import user from "./user";
 
-export const reducers = combineReducers({ auth, user });
+import category from "./category";
+
+export const reducers = combineReducers({ auth, user, category });

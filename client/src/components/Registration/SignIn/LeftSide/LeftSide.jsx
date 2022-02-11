@@ -150,7 +150,7 @@ const LeftSide = () => {
     return () => {
       document.removeEventListener("keydown", listener);
     };
-  }, [focusInput]);
+  });
 
   useEffect(() => {
     if (userLogged) {

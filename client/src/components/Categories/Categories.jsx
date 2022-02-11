@@ -21,6 +21,12 @@ const Categories = () => {
 
   const [sub, setSub] = useState(null);
 
+  const fetchOneCat = () => {
+    const catId = "cat_O3bR5XyVklnzdj";
+
+    commerce.categories.retrieve(catId).then((res) => console.log("res", res));
+  };
+
   const fetchCategories = () => {
     let tab = [];
 
@@ -51,11 +57,8 @@ const Categories = () => {
   };
 
   useEffect(() => {
-    document.title = "Categories | E-Commerce";
-  }, []);
-
-  useEffect(() => {
-    fetchCategories();
+    // fetchCategories();
+    fetchOneCat();
     // console.log("sub", sub);
   }, []);
   return (

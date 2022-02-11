@@ -5,13 +5,9 @@ import express from "express";
 import dotenv from "dotenv";
 import db from "./config/db.js";
 
-import { authRouter, userRouter } from "./routes/index.js";
+import { authRouter, userRouter, commerceRouter } from "./routes/index.js";
 
 dotenv.config();
-
-const origin_front = process.env.ORIGIN_FRONT;
-
-const origin_front_local = process.env.ORIGIN_FRONT_LOCAL;
 
 const app = express();
 
@@ -44,3 +40,5 @@ app.get("/", (req, res) => {
 app.use("/auth", authRouter);
 
 app.use("/user", userRouter);
+
+app.use("/commerce", commerceRouter);

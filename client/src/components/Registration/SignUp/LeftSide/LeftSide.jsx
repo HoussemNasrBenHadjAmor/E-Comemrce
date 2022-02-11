@@ -209,7 +209,7 @@ const LeftSide = () => {
     return () => {
       document.removeEventListener("keydown", listener);
     };
-  }, [focusInput]);
+  });
 
   useEffect(() => {
     if (clicked && signErrorMessage) {

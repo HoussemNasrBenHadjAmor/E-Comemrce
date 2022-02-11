@@ -21,6 +21,7 @@ import {
   FormControlLabel,
   FormControl,
   RadioGroup,
+  Tooltip,
 } from "@mui/material";
 
 import useStyles from "./styles";
@@ -42,6 +43,8 @@ import LanguageIcon from "@mui/icons-material/Language";
 import Cookies from "universal-cookie";
 
 import FlagIcon from "../../ReactFlags/Flags";
+
+import { CSSTransition } from "react-transition-group";
 
 const ProfileMenu = ({
   menuId,
@@ -100,9 +103,11 @@ const ProfileMenu = ({
           <>
             <div className={classes.DrawerHeader}>
               <IconButton onClick={handleDisplayMenuClose}>
-                <ChevronLeftIcon fontSize="large" />
+                <ChevronLeftIcon fontSize="medium" />
               </IconButton>
-              <Typography variant="h5">{t("profile_menu_l5")}</Typography>
+              <Typography variant="h5" marginLeft="3px">
+                {t("profile_menu_l5")}
+              </Typography>
             </div>
 
             <MenuItem
@@ -252,9 +257,28 @@ const ProfileMenu = ({
               >
                 <Grid item xs={12}>
                   <ListItemText>
-                    <Typography variant="body1">
-                      {userInfoNav?.firstName} {userInfoNav?.lastName}
-                    </Typography>
+                    {userInfoNav?.lastName?.length <= 18 ? (
+                      <Typography variant="body1">
+                        {userInfoNav?.firstName} {userInfoNav?.lastName}
+                      </Typography>
+                    ) : (
+                      <Tooltip
+                        arrow
+                        title={
+                          userInfoNav?.firstName + " " + userInfoNav?.lastName
+                        }
+                      >
+                        <Typography variant="body1">
+                          {userInfoNav?.firstName}{" "}
+                          {userInfoNav?.lastName?.substring(0, 10) +
+                            "..." +
+                            userInfoNav?.lastName?.substring(
+                              userInfoNav?.lastName?.length - 5,
+                              userInfoNav?.lastName?.length
+                            )}
+                        </Typography>
+                      </Tooltip>
+                    )}
                   </ListItemText>
                 </Grid>
 
@@ -302,6 +326,7 @@ const ProfileMenu = ({
                 <ChevronRightIcon fontSize="large" />
               </ListItemIcon>
             </MenuItem>
+
             <Divider variant="middle" />
 
             <MenuItem
