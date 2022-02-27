@@ -12,7 +12,7 @@ const ErrorPage = () => {
       alignItems="center"
       justifyContent="center"
       padding="0px 20px"
-      height="81vh"
+      height="100vh"
     >
       <Typography variant="h1" color="text.primary" gutterBottom>
         404

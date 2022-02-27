@@ -17,7 +17,6 @@ import {
   ErrorPage,
   Cart,
   Profile,
-  Categories,
   Settings,
   Home,
   About,
@@ -28,6 +27,8 @@ import {
   ForgotPass,
   ViewAndFilter,
 } from "./components";
+
+import { Categories } from "./pages";
 
 import ScrollToTop from "./ScrollToTop";
 
@@ -70,13 +71,6 @@ const App = () => {
 
             <SimpleRoute
               exact
-              path="/category/:id"
-              component={ViewAndFilter}
-              title="Products | HNBHAStore"
-            />
-
-            <SimpleRoute
-              exact
               path="/cart"
               component={Cart}
               title="Cart | HNBHAStore"
@@ -89,7 +83,7 @@ const App = () => {
             />
             <SimpleRoute
               exact
-              path="/categories"
+              path="/category/:id"
               component={Categories}
               title="Categories | HNBHAStore"
             />

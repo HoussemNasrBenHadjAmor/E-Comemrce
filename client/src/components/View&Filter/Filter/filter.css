@@ -1,0 +1,17 @@
+.filter-enter {
+  /* opacity: 0.8; */
+  transform: translateX(110%);
+  /* overflow: -moz-hidden-unscrollable; */
+}
+.filter-enter-active {
+  /* opacity: 1; */
+  transform: translateX(0%);
+  transition: all 500ms ease-in;
+}
+/* .filter-exit {
+} */
+.filter-exit-active {
+  /* opacity: 0.8; */
+  transform: translateX(110%);
+  transition: all 500ms ease-in;
+}

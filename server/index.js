@@ -11,6 +11,8 @@ dotenv.config();
 
 const app = express();
 
+const PORT = process.env.PORT;
+
 db();
 
 app.set("trust proxy", 1);
@@ -30,11 +32,11 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 
 app.listen(process.env.PORT, () => {
-  console.log(`connecting on Port ${process.env.PORT}`);
+  console.log(`connecting on Port ${PORT}`);
 });
 
 app.get("/", (req, res) => {
-  res.send(`app is running on ${process.env.PORT}`);
+  res.send(`app is running on ${PORT}}`);
 });
 
 app.use("/auth", authRouter);

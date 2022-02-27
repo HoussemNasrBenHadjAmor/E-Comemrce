@@ -136,8 +136,8 @@ const MenuLeft = ({ handleDrawerClose, open, categories }) => {
                     fontSize: category?.parent_id === null ? "18px" : "15px",
                   }}
                   onClick={() => {
-                    // handleDrawerClose();
-                    // history.push(`/category?slug=${category.id}`);
+                    history.push(`/category/${category.slug}`);
+                    handleDrawerClose();
                   }}
                 >
                   {category.name}

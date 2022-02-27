@@ -1,0 +1,18 @@
+.showIcon-enter {
+  width: 100px;
+  height: 100px;
+}
+.showIcon-enter-active {
+  transition: width 1s, height 1s ease-in;
+
+  width: 500px;
+  height: 500px;
+}
+/* .filter-exit {
+} */
+.showIcon-exit-active {
+  transition: width 1s, height 1s ease-out;
+
+  width: 100px;
+  height: 100px;
+}
