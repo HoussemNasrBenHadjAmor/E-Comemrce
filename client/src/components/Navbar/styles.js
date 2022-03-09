@@ -6,15 +6,10 @@ import * as darkColor from "../../utilities/DarkModeColors";
 
 const drawerWidth = 0;
 
-const settingsPath = "/settings";
-
-const anyPath = "";
-
 export default makeStyles((theme) => ({
   appBar: {
     boxShadow: "none",
     borderBottom: "1px solid rgba(0, 0, 0, 0.1)",
-    // marginBottom: "60px !important",
 
     [theme.breakpoints.up("sm")]: {
       width: `calc(100% - ${drawerWidth}px)`,

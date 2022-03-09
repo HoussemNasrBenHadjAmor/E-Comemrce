@@ -16,7 +16,7 @@ const Footer = () => {
         }}
       >
         <Toolbar>
-          <Typography align="center" variant="body1" color="tomato">
+          <Typography align="center" variant="body1">
             All Copyrights © reserved {new Date().getFullYear()}
           </Typography>
         </Toolbar>

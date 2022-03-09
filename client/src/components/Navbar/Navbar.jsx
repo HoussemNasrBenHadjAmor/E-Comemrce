@@ -18,7 +18,9 @@ import {
   Button,
 } from "@mui/material";
 
-import NavbarSkelton from "./NavbarSkelton/NavbarSkelton";
+import NavbarNotConnectedSkelton from "./NavbarSkelton/NavbarNotConnectedSkelton/NavbarNotConnected";
+
+import NavbarConnectedSkelton from "./NavbarSkelton/NavbarConnectedSkelton/NavbarSkelton";
 
 import { useDispatch, useSelector } from "react-redux";
 
@@ -147,14 +149,18 @@ const Navbar = () => {
     dispatch(getCategories());
   }, []);
 
-  if (loadingNav || loading) {
-    return <NavbarSkelton />;
+  if ((loadingNav || loading) && isLogged && !userInfoNav) {
+    return <NavbarConnectedSkelton />;
+  }
+
+  if ((loadingNav || loading) && !isLogged) {
+    return <NavbarNotConnectedSkelton />;
   }
 
   return (
     <>
       <AppBar position="fixed" className={classes.appBar} color="inherit">
-        <Toolbar className={classes.toolbar}>
+        <Toolbar>
           <IconButton
             color="inherit"
             aria-label="open drawer"

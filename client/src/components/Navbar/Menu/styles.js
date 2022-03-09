@@ -17,7 +17,8 @@ export default makeStyles((theme) => ({
         minWidth: 700,
       },
       [theme.breakpoints.down("sm")]: {
-        minWidth: 260,
+        // minWidth: 260,
+        minWidth: "100%",
       },
     },
   },
