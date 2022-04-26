@@ -9,6 +9,7 @@ const RightSide = () => {
     lat: 35.7488110399058,
     lng: 10.692079067230225,
   };
+
   return (
     <Grid
       xs={12}
